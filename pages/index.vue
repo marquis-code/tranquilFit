@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <NuxtLayout name="hello">
     <template #title>{{ productName }}</template>
     <template #message>{{ message }}</template>
@@ -14,5 +14,13 @@ const message = computed(
 
 definePageMeta({
   layout: false,
+});
+</script> -->
+
+<!-- pages/index.vue -->
+<script setup lang="ts">
+onMounted(() => {
+  const router = useRouter()
+  router.push('/login');
 });
 </script>
