@@ -50,6 +50,7 @@ const { registerPayload, handleRegister, loading, isFormEmpty  } = useRegister()
  definePageMeta({
      layout: 'authentication'
  })
+
 </script>
 
 <style></style>

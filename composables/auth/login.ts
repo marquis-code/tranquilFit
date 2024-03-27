@@ -45,6 +45,11 @@ export const useLogin = () => {
     } catch (error) {
       return error;
     } finally {
+      useNuxtApp().$toast.success('Login was successful.', {
+        autoClose: 5000,
+        dangerouslyHTMLString: true,
+      });
+      useRouter().push('/dashboard')
       loading.value = false;
     }
   };
