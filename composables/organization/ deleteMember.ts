@@ -2,10 +2,11 @@ import { organizationApiFactory } from "@/apiFactory/organization";
 
 export const useDeleteMember = () => {
   const loading = ref(false);
-  const handleDeleteMember = async (organizationId: string, userId: string) => {
+  const route = useRoute()
+  const handleDeleteMember = async (userId: string) => {
     loading.value = true;
     try {
-      const response = await organizationApiFactory.deleteOrganizationMember(organizationId, userId);
+      const response = await organizationApiFactory.deleteOrganizationMember(route.params.id, userId);
       return response.data;
     } catch (error) {
       return error

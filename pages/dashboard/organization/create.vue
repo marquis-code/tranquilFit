@@ -1,7 +1,7 @@
 <template>
   <main class="max-w-md mx-auto">
     <h1 class="text-center text-base lg:text-xl font-medium pb-[20px]">Create a new organization</h1>
-    <form class="space-y-6" @submit.prevent="handleCreateMember">
+    <form class="space-y-6" @submit.prevent="handleCreateOrganization">
       <div>
         <!-- <label for="orgName" class="block text-sm sr-only font-medium leading-6 text-gray-900">Logo</label>
         <div class="mt-2">
@@ -29,7 +29,7 @@
         <label for="orgName" class="block text-sm sr-only font-medium leading-6 text-gray-900">Organization
           Name:</label>
         <div class="mt-2">
-          <input v-model="memberPayload.name" placeholder="Enter organization name" id="orgName" name="orgName"
+          <input v-model="organizationPayload.name" placeholder="Enter organization name" id="orgName" name="orgName"
             type="text" required
             class="block w-full text-sm md:text-base rounded-md outline-none py-3 px-3 text-gray-900 shadow-sm border placeholder:text-gray-400 focus:ring-[0.4px] focus:ring-inset focus:ring-[#1F9D00] sm:text-sm sm:leading-6">
         </div>
@@ -38,7 +38,7 @@
         <label for="description" class="block text-sm sr-only font-medium leading-6 text-gray-900">Describe your
           organization:</label>
         <div class="mt-2">
-          <textarea v-model="memberPayload.description" placeholder="Describe your organization..." rows="4" cols="4"
+          <textarea v-model="organizationPayload.description" placeholder="Describe your organization..." rows="4" cols="4"
             id="description" name="description" required
             class="block w-full text-sm md:text-base rounded-md outline-none resize-none py-3 px-3 text-gray-900 shadow-sm border placeholder:text-gray-400 focus:ring-[0.4px] focus:ring-inset focus:ring-[#1F9D00] sm:text-sm sm:leading-6"></textarea>
         </div>
@@ -46,7 +46,7 @@
       <div>
         <label for="website" class="block text-sm sr-only font-medium leading-6 text-gray-900">Website Url:</label>
         <div class="mt-2">
-          <input v-model="memberPayload.website" type="url" placeholder="Enter website Url" id="websiteUrl"
+          <input v-model="organizationPayload.website" type="url" placeholder="Enter website Url" id="websiteUrl"
             name="websiteUrl" required
             class="block w-full text-sm md:text-base rounded-md outline-none py-3 px-3 text-gray-900 shadow-sm border placeholder:text-gray-400 focus:ring-[0.4px] focus:ring-inset focus:ring-[#1F9D00] sm:text-sm sm:leading-6">
         </div>
@@ -61,15 +61,15 @@
 </template>
 
 <script setup lang="ts">
-import { useCreateOrganizationMember } from '@/composables/organization/createMember'
-const { handleCreateMember, memberPayload, loading, isFormEmpty } = useCreateOrganizationMember()
+import { useCreateOrganization } from '@/composables/organization/create'
+const {  handleCreateOrganization, organizationPayload, loading, isFormEmpty } = useCreateOrganization()
 definePageMeta({
   layout: 'dashboard'
 })
 const preview = ref(null) as any;
 const handleFileChange = (event: any) => {
   const file = event.target.files[0];
-  memberPayload.value.logo = file
+  organizationPayload.value.logo = file
   if (file) {
     preview.value = URL.createObjectURL(file);
   }

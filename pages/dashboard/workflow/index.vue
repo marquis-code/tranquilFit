@@ -2,17 +2,17 @@
   <div class="px-4 sm:px-6 lg:px-8">
     <div class="sm:flex sm:items-center border-[0.6px] rounded-tr-md rounded-tl-md p-3">
       <div class="sm:flex-auto">
-        <h1 class="text-base font-semibold leading-6 text-gray-900">Organizations</h1>
-        <p class="mt-2 text-sm text-gray-700">A list of all organizations</p>
+        <h1 class="text-base font-semibold leading-6 text-gray-900">Workflows</h1>
+        <p class="mt-2 text-sm text-gray-700">A list of all workflows</p>
       </div>
       <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-        <button @click="notify" type="button"
+        <NuxtLink to="/dashboard/workflow/new"
           class="block rounded-md bg-green-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Add
-          Organization</button>
+          Workflow</NuxtLink>
       </div>
     </div>
     <div class="flow-root">
-      <div v-if="organizationsList.length" class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+      <div v-if="organizationList.length" class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
         <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
           <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
             <table class="min-w-full divide-y divide-gray-300">
@@ -20,28 +20,39 @@
                 <tr>
                   <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Name
                   </th>
-                  <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Title</th>
-                  <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Email</th>
-                  <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Role</th>
+                  <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Description</th>
+                  <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">CreatedAt</th>
+                  <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Website</th>
+                  <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Logo</th>
                   <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
                     <span class="sr-only">Edit</span>
                   </th>
                 </tr>
               </thead>
               <tbody class="divide-y divide-gray-200 bg-white">
-                <tr v-for="(itm, idx) in organizationsList" :key="idx">
-                  <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">{{ itm.name }}
+                <tr v-for="(itm, idx) in organizationList" :key="idx">
+                  <td @click="viewOrganization(itm)"
+                    class="whitespace-nowrap cursor-pointer py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+                    {{ itm.name }}
                   </td>
-                  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ itm.title || 'N/A' }}</td>
-                  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ itm.email || 'N/A' }}</td>
-                  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ itm.role || 'N/A' }}</td>
+                  <td @click="viewOrganization(itm)"
+                    class="whitespace-nowrap cursor-pointer px-3 py-4 text-sm text-gray-500">{{ itm.description ||
+          'N/A' }}</td>
+                  <td @click="viewOrganization(itm)"
+                    class="whitespace-nowrap cursor-pointer px-3 py-4 text-sm text-gray-500">{{ itm.createdAt || 'N/A'
+                    }}</td>
+                  <td @click="viewOrganization(itm)"
+                    class="whitespace-nowrap cursor-pointer px-3 py-4 text-sm text-gray-500">{{ itm.website || 'N/A'
+                    }}</td>
+                  <td @click="viewOrganization(itm)"
+                    class="whitespace-nowrap cursor-pointer px-3 py-4 text-sm text-gray-500">{{ itm.logo || 'N/A' }}
+                  </td>
                   <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                    <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit<span class="sr-only">, Lindsay
-                        Walton</span></a>
+                    <a href="" @click.prevent="handleDeleteOrganization(itm.id)"
+                      class="text-indigo-600 hover:text-indigo-900">Delete<span class="sr-only">
+                      </span></a>
                   </td>
                 </tr>
-
-                <!-- More people... -->
               </tbody>
             </table>
           </div>
@@ -53,22 +64,32 @@
 </template>
 
 <script setup lang="ts">
+import { useFetchOrganization } from '@/composables/organization/fetch'
+import { useDeleteOrganization } from '@/composables/organization/delete'
+import { useConfirmationModal } from '@/composables/core/useConfirmationModal'
+const { openModal } = useConfirmationModal()
+const { handleDeleteOrganization, loading } = useDeleteOrganization()
+const { fetchOrganizations, organizationList, loading: fetching } = useFetchOrganization()
+const router = useRouter()
 definePageMeta({
-  layout: 'dashboard'
+layout: 'dashboard'
 })
+fetchOrganizations()
 
-const organizationsList = ref([
-  {
-    name: 'Visa application',
-    steps: '4',
-    description: 'workflow to visa application'
-  }
-])
+const viewOrganization = (itm: any) => {
+router.push(`/dashboard/organization/${itm.id}`)
+}
 
-const notify = () => {
-  useNuxtApp().$toast.info('Hello World.\n I am <b>Tom</b>', {
-    autoClose: 5000,
-    dangerouslyHTMLString: true,
-  });
-};
+function openDeleteConfirmation() {
+openModal('Are you sure you want to delete this user?', () => {
+  console.log('User deletion confirmed.')
+  // Add logic to delete the user here.
+})
+}
+// const notify = () => {
+//   useNuxtApp().$toast.info('Hello World.\n I am <b>Tom</b>', {
+//     autoClose: 5000,
+//     dangerouslyHTMLString: true,
+//   });
+// };
 </script>

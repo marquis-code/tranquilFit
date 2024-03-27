@@ -14,11 +14,11 @@ export const useRegister = () => {
     loading.value = true;
     try {
       const response = await authApiFactory.register(registerPayload);
+      router.push("/login");
       return response.data;
     } catch (error) {
       return error
     } finally {
-      router.push("/login");
       loading.value = false;
     }
   };

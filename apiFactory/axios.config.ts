@@ -1,7 +1,7 @@
 import axios from "axios";
 const token = ref("");
 export const axiosInstance = axios.create({
-  baseURL: "http://api.lordvidex.com/v1",
+  baseURL: "http://lordvidex.com:8081/v1",
 });
 
 axiosInstance.interceptors.request.use((config: any) => {
