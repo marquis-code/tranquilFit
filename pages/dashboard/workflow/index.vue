@@ -7,7 +7,8 @@
       </div>
       <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
         <NuxtLink to="/dashboard/workflow/new"
-          class="block rounded-md bg-green-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Add
+          class="block rounded-md bg-green-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+          Add
           Workflow</NuxtLink>
       </div>
     </div>
@@ -24,9 +25,9 @@
                   <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Steps</th>
                   <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Cerated By</th>
                   <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Organization ID</th>
-                  <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
+                  <!-- <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
                     <span class="sr-only">Edit</span>
-                  </th>
+                  </th> -->
                 </tr>
               </thead>
               <tbody class="divide-y divide-gray-200 bg-white">
@@ -36,22 +37,25 @@
                     {{ itm.workflowName }}
                   </td>
                   <td @click="viewWorkflow(itm)"
-                    class="whitespace-nowrap cursor-pointer px-3 py-4 text-sm text-gray-500">{{ itm.workflowDescription ||
-          'N/A' }}</td>
+                    class="whitespace-nowrap cursor-pointer px-3 py-4 text-sm text-gray-500">{{ itm.workflowDescription
+        ||
+        'N/A' }}</td>
                   <td @click="viewWorkflow(itm)"
-                    class="whitespace-nowrap cursor-pointer px-3 py-4 text-sm text-gray-500">{{ itm.workflowSteps || 'N/A'
+                    class="whitespace-nowrap cursor-pointer px-3 py-4 text-sm text-gray-500">{{ itm.workflowSteps ||
+        'N/A'
                     }}</td>
                   <td @click="viewWorkflow(itm)"
                     class="whitespace-nowrap cursor-pointer px-3 py-4 text-sm text-gray-500">{{ itm.createdBy || 'N/A'
                     }}</td>
                   <td @click="viewWorkflow(itm)"
-                    class="whitespace-nowrap cursor-pointer px-3 py-4 text-sm text-gray-500">{{ itm.organizationId || 'N/A' }}
+                    class="whitespace-nowrap cursor-pointer px-3 py-4 text-sm text-gray-500">{{ itm.organizationId ||
+                    'N/A' }}
                   </td>
-                  <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+                  <!-- <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                     <a href="" @click.prevent="handleDeleteOrganization(itm.id)"
                       class="text-indigo-600 hover:text-indigo-900">Delete<span class="sr-only">
                       </span></a>
-                  </td>
+                  </td> -->
                 </tr>
               </tbody>
             </table>
@@ -72,19 +76,19 @@ const { handleDeleteOrganization, loading } = useDeleteOrganization()
 const { fetchWorkflows, workflowList, loading: fetching } = useFetchWorkflows()
 const router = useRouter()
 definePageMeta({
-layout: 'dashboard'
+  layout: 'dashboard'
 })
 fetchWorkflows()
 
 const viewWorkflow = (itm: any) => {
-router.push(`/dashboard/workflow/${itm.id}`)
+  router.push(`/dashboard/workflow/${itm.id}`)
 }
 
 function openDeleteConfirmation() {
-openModal('Are you sure you want to delete this user?', () => {
-  console.log('User deletion confirmed.')
-  // Add logic to delete the user here.
-})
+  openModal('Are you sure you want to delete this user?', () => {
+    console.log('User deletion confirmed.')
+    // Add logic to delete the user here.
+  })
 }
 // const notify = () => {
 //   useNuxtApp().$toast.info('Hello World.\n I am <b>Tom</b>', {

@@ -7,7 +7,7 @@ export const authApiFactory = {
   login(data: any) {
     return axiosInstance.post('/auth/login', data);
   },
-  refresh(data: any) {
-    return axiosInstance.post('/auth/refresh', data);
+  verify(data: any) {
+    return axiosInstance.post('/auth/verify', data);
   }
 };

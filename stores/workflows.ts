@@ -7,9 +7,9 @@ interface Step {
 }
 
 interface Workflow {
+  id: string; // Added id field
   name: string;
   description: string;
-  createdBy: string;
   steps: Step[];
 }
 
@@ -21,9 +21,17 @@ function addWorkflow(workflow: Workflow) {
   state.workflows.push(workflow);
 }
 
-function addStepToWorkflow(workflowIndex: number, step: any) {
-  console.log(workflowIndex, step)
-  state.workflows[workflowIndex].steps.push(step);
+function addStepToWorkflow(workflowIndex: number, step: Step) {
+  const workflow = state.workflows[workflowIndex];
+  state.workflows[workflowIndex]?.steps.push(step);
+  if (step) {
+    if (!workflow?.steps) {
+      // Initialize steps array if not present
+      workflow.steps = [step];
+    } else {
+      workflow?.steps.push(step);
+    }
+  }
 }
 
 function deleteWorkflow(workflowId: string) {
