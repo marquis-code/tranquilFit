@@ -1,40 +1,44 @@
-// useWorkflows.ts
-import { ref, reactive } from 'vue';
-import { Workflow, Step } from '@/interfaces/workflow';
 
-export const workflows = ref<Workflow[]>([]);
-export const currentWorkflow = reactive<Workflow>({
-  id: '',
-  name: '',
-  description: '',
-  steps: [],
-});
-
-export function createWorkflow() {
-  const newWorkflow = { ...currentWorkflow, id: Date.now().toString() };
-  workflows.value.push(newWorkflow);
-  resetCurrentWorkflow();
+export interface WorkflowStep {
+  id: string;
+  name: string;
+  description: string;
+  type: string; // Define your step types here
 }
 
-export function addStepToCurrentWorkflow(step: Step) {
-  step.id = Date.now().toString(); // Generate a unique ID for the step
-  currentWorkflow.steps.push(step);
+export interface Workflow {
+  id: string;
+  name: string;
+  description: string;
+  steps: WorkflowStep[];
 }
 
-export function resetCurrentWorkflow() {
-  currentWorkflow.id = '';
-  currentWorkflow.name = '';
-  currentWorkflow.description = '';
-  currentWorkflow.steps = [];
-}
+export function useWorkflow() {
+  const workflows = ref<Workflow[]>([]);
 
-export function updateStepInWorkflow(stepId: string, updatedStep: Step) {
-  const stepIndex = currentWorkflow.steps.findIndex(s => s.id === stepId);
-  if (stepIndex !== -1) {
-    currentWorkflow.steps[stepIndex] = updatedStep;
-  }
-}
+  const addWorkflow = (workflow: Workflow) => {
+    workflows.value.push({ ...workflow, id: Math.random().toString() });
+  };
 
-export function deleteStepFromWorkflow(stepId: string) {
-  currentWorkflow.steps = currentWorkflow.steps.filter(s => s.id !== stepId);
+  const addStepToWorkflow = (workflowId: string, step: WorkflowStep) => {
+    const workflowIndex = workflows.value.findIndex((w) => w.id === workflowId);
+    if (workflowIndex !== -1) {
+      workflows.value[workflowIndex].steps.push({ ...step, id: Math.random().toString() });
+    }
+  };
+
+  // Persist workflows to local storage (optional)
+  watch(workflows, (newWorkflows) => {
+    localStorage.setItem('workflows', JSON.stringify(newWorkflows));
+  }, { deep: true });
+
+  // Load workflows from local storage (optional)
+  const loadWorkflows = () => {
+    const storedWorkflows = localStorage.getItem('workflows');
+    if (storedWorkflows) {
+      workflows.value = JSON.parse(storedWorkflows);
+    }
+  };
+
+  return { workflows, addWorkflow, addStepToWorkflow, loadWorkflows };
 }

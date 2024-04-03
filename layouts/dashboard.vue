@@ -228,6 +228,7 @@ const route = useRoute()
 const sidebarItems = [
   { icon: organizationLogo, name: 'Dashboard', route: '/dashboard/organization' },
   { icon: workflowLogo, name: 'Workflow', route: '/dashboard/workflow' },
+  { icon: workflowLogo, name: 'Document', route: '/dashboard/document' },
 ];
 
 function getNavItemClass(itemRoute: any) {
