@@ -1,4 +1,3 @@
-
 export interface WorkflowStep {
   id: string;
   name: string;
@@ -13,6 +12,7 @@ export interface Workflow {
   steps: WorkflowStep[];
 }
 
+
 export function useWorkflow() {
   const workflows = ref<Workflow[]>([]);
 
@@ -23,18 +23,25 @@ export function useWorkflow() {
   const addStepToWorkflow = (workflowId: string, step: WorkflowStep) => {
     const workflowIndex = workflows.value.findIndex((w) => w.id === workflowId);
     if (workflowIndex !== -1) {
-      workflows.value[workflowIndex].steps.push({ ...step, id: Math.random().toString() });
+      workflows.value[workflowIndex].steps.push({
+        ...step,
+        id: Math.random().toString(),
+      });
     }
   };
 
   // Persist workflows to local storage (optional)
-  watch(workflows, (newWorkflows) => {
-    localStorage.setItem('workflows', JSON.stringify(newWorkflows));
-  }, { deep: true });
+  watch(
+    workflows,
+    (newWorkflows) => {
+      localStorage.setItem("workflows", JSON.stringify(newWorkflows));
+    },
+    { deep: true }
+  );
 
   // Load workflows from local storage (optional)
   const loadWorkflows = () => {
-    const storedWorkflows = localStorage.getItem('workflows');
+    const storedWorkflows = localStorage.getItem("workflows");
     if (storedWorkflows) {
       workflows.value = JSON.parse(storedWorkflows);
     }

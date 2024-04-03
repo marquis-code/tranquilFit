@@ -22,15 +22,20 @@ function addWorkflow(workflow: Workflow) {
 }
 
 function addStepToWorkflow(workflowIndex: number, step: Step) {
+  console.log(workflowIndex, step, state.workflows)
   const workflow = state.workflows[workflowIndex];
   state.workflows[workflowIndex]?.steps.push(step);
-  if (step) {
-    if (!workflow?.steps) {
-      // Initialize steps array if not present
-      workflow.steps = [step];
-    } else {
-      workflow?.steps.push(step);
-    }
+  if (Object.keys(step).length) {
+    console.log(step, state.workflows, workflow, 'fghjklkjhg')
+    // if (!workflow?.steps) {
+    //   workflow.steps = [step];
+    // } else {
+    //   // workflow?.steps.push(step);
+    // }
+
+    // if(state.workflows?.steps){
+
+    // }
   }
 }
 

@@ -11,7 +11,7 @@
           cols="5"></textarea>
       </div>
       <div class="flex justify-end items-end gap-x-3">
-        <button @click="handleWorkFlow" class="bg-black text-white rounded-md text-xs py-2.5 px-4">Create new
+        <button @click="handleWorkFlow" class="bg-black text-white rounded-md text-xs py-2.5 px-4">Save workflow and Create new
           Step</button>
         <button @click="toggleExistingStepsVisibility" class="bg-black text-white rounded-md text-xs py-2.5 px-4">{{
           !showPreExistingFields ? 'Show' : 'Hide' }}
@@ -58,7 +58,7 @@
       <div class="flex justify-end items-end gap-x-3 pt-10">
         <button @click="addStep" class="bg-green-950 text-white rounded-md px-6 py-2.5 text-sm">Save and add another
           step</button>
-        <button class="bg-green-950 text-white rounded-md px-6 py-2.5 text-sm">Save Workflow</button>
+        <button @click="saveWorkflow" class="bg-green-950 text-white rounded-md px-6 py-2.5 text-sm">Save Workflow</button>
       </div>
     </div>
   </div>
@@ -74,7 +74,6 @@ definePageMeta({
 })
 
 const { addWorkflow, addStepToWorkflow } = useWorkflow();
-
 const workflowName = ref('');
 const workflowDescription = ref('');
 const stepName = ref('');
@@ -95,7 +94,7 @@ function handleWorkFlow() {
   };
   addWorkflow(workflow);
   selectedWorkflowIndex.value = 0; // For simplicity, select the first (or newly added) workflow
-  clearWorkflowForm();
+  // clearWorkflowForm();
 }
 
 function addStep() {
@@ -106,7 +105,7 @@ function addStep() {
       fieldType: stepType.value
     };
     addStepToWorkflow(selectedWorkflowIndex.value, step);
-    selectedWorkflowIndex.value++
+    // selectedWorkflowIndex.value+=1
     clearStepForm();
   }
 }
@@ -126,4 +125,9 @@ function clearStepForm() {
 const toggleExistingStepsVisibility = () => {
   showPreExistingFields.value = !showPreExistingFields.value
 }
+
+const saveWorkflow = () => {
+
+}
 </script>
+
