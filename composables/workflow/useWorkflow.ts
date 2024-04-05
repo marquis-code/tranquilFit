@@ -1,51 +1,38 @@
-export interface WorkflowStep {
-  id: string;
-  name: string;
-  description: string;
-  type: string; // Define your step types here
-}
-
-export interface Workflow {
-  id: string;
-  name: string;
-  description: string;
-  steps: WorkflowStep[];
-}
-
-
-export function useWorkflow() {
-  const workflows = ref<Workflow[]>([]);
-
-  const addWorkflow = (workflow: Workflow) => {
-    workflows.value.push({ ...workflow, id: Math.random().toString() });
-  };
-
-  const addStepToWorkflow = (workflowId: string, step: WorkflowStep) => {
-    const workflowIndex = workflows.value.findIndex((w) => w.id === workflowId);
-    if (workflowIndex !== -1) {
-      workflows.value[workflowIndex].steps.push({
-        ...step,
-        id: Math.random().toString(),
+import { workflowApiFactory } from "@/apiFactory/workflow";
+export const useCreateWorkflow = () => {
+  const workflowForm = ref({
+    orgId: "" as any,
+    name: "",
+    description: "",
+  }) as any;
+  const creating = ref(false);
+  const createFlow = async () => {
+    const payload = {
+      orgId: useRoute().params.id,
+      name: workflowForm.value.name,
+      description: workflowForm.value.description,
+    };
+    creating.value = true;
+    try {
+      const result = await workflowApiFactory.createWorkflow(payload);
+      useNuxtApp().$toast.success("Workflow was created successfully", {
+        autoClose: 5000,
+        dangerouslyHTMLString: true,
       });
+      return result;
+    } catch (error) {
+      useNuxtApp().$toast.error("Something went wrong while saving workflow", {
+        autoClose: 5000,
+        dangerouslyHTMLString: true,
+      });
+    } finally {
+      creating.value = false;
     }
   };
 
-  // Persist workflows to local storage (optional)
-  watch(
-    workflows,
-    (newWorkflows) => {
-      localStorage.setItem("workflows", JSON.stringify(newWorkflows));
-    },
-    { deep: true }
-  );
+  const isFormEmpty = computed(() => {
+    return !!(workflowForm.value.name && workflowForm.value.description)
+  })
 
-  // Load workflows from local storage (optional)
-  const loadWorkflows = () => {
-    const storedWorkflows = localStorage.getItem("workflows");
-    if (storedWorkflows) {
-      workflows.value = JSON.parse(storedWorkflows);
-    }
-  };
-
-  return { workflows, addWorkflow, addStepToWorkflow, loadWorkflows };
-}
+  return { createFlow, creating, isFormEmpty, workflowForm };
+};

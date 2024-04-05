@@ -6,11 +6,11 @@
         <h1 class="text-base font-semibold leading-6 text-gray-900">Organization Members</h1>
         <p class="mt-2 text-sm text-gray-700">A list of all organizations members</p>
       </div>
-      <!-- <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
+      <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
           <button type="button"
             class="block rounded-md bg-green-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Add
-            Organization</button>
-        </div> -->
+            Member</button>
+        </div>
     </div>
     <div class="flow-root">
       <div v-if="organizationMembersList.length" class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">

@@ -1,13 +1,12 @@
 // composables/useOrganizations.ts
 import { authApiFactory } from "@/apiFactory/auth";
 import { useStorage } from "@vueuse/core";
+import Swal from "sweetalert2";
 const runtimeData = {
-  auth: ref(),
   user: ref({} as any),
   token: ref(""),
 };
 const localstorageDate = {
-  auth: ref(),
   user: useStorage("user", {} as any),
   token: useStorage("token", ""),
 };
@@ -22,11 +21,10 @@ watch(
 );
 
 (() => {
-  runtimeData.auth.value = localstorageDate.auth.value;
   runtimeData.user.value = localstorageDate.user.value;
   runtimeData.token.value = localstorageDate.token.value;
 })();
-const router = useRouter();
+
 const loginPayload = ref({
   email: "",
   password: "",
@@ -36,32 +34,53 @@ export const useLogin = () => {
   const handleLogin = async () => {
     loading.value = true;
     try {
-      const response = await authApiFactory.login(loginPayload);
+      const payload = {
+        email: loginPayload.value.email,
+        password: loginPayload.value.password,
+      };
+      const response = await authApiFactory.login(payload);
       runtimeData.user.value = response.data.user;
       localstorageDate.token.value = response.data?.token;
       runtimeData.token.value = response.data?.token;
-      router.push("/dashboard");
-      return response.data;
-    } catch (error) {
-      return error;
-    } finally {
-      useNuxtApp().$toast.success('Login was successful.', {
+      useNuxtApp().$toast.success("Welcome back.", {
         autoClose: 5000,
         dangerouslyHTMLString: true,
       });
-      useRouter().push('/dashboard')
+      useRouter().push("/dashboard");
+      return response.data;
+    } catch (error) {
+      useNuxtApp().$toast.error("Something went wrong!", {
+        autoClose: 5000,
+        dangerouslyHTMLString: true,
+      });
+      return error;
+    } finally {
       loading.value = false;
     }
   };
 
   const logOut = () => {
-    localStorage.clear();
-    runtimeData.user.value = null;
-    location.href = "/auth/login";
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.value) {
+        localStorage.clear();
+        runtimeData.user.value = null;
+        location.href = "/login";
+      } else {
+        Swal.fire("Cancelled", "Action was cancelled", "info");
+      }
+    });
   };
 
   const id = computed({
-    get: () => runtimeData?.auth?.value?.id ?? "",
+    get: () => runtimeData?.user?.value?.id ?? "",
     set: () => {},
   });
 

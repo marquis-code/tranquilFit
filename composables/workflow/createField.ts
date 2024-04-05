@@ -24,7 +24,7 @@ export const useCreateField = () => {
       clearInputFields();
       return response.data;
     } catch (error) {
-      useNuxtApp().$toast.error("Something went wrong while creating Fields.", {
+      useNuxtApp().$toast.error(error.message, {
         autoClose: 5000,
         dangerouslyHTMLString: true,
       });

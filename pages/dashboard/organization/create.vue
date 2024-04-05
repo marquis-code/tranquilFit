@@ -5,11 +5,6 @@
       <h1 class="text-center text-base lg:text-xl font-medium pb-[20px]">Create a new organization</h1>
       <form class="space-y-6" @submit.prevent="handleCreateOrganization">
         <div>
-          <!-- <label for="orgName" class="block text-sm sr-only font-medium leading-6 text-gray-900">Logo</label>
-        <div class="mt-2">
-          <input id="orgName" name="orgName" type="file" required
-            class="block w-full rounded-md outline-none py-3 px-3 text-gray-900 shadow-sm border placeholder:text-gray-400 focus:ring-[0.4px] focus:ring-inset focus:ring-[#1F9D00] sm:text-sm sm:leading-6">
-        </div> -->
           <div class="flex justify-center items-center">
             <div class="p-4">
               <label for="file-upload" class="cursor-pointer">
@@ -65,6 +60,7 @@
 
 <script setup lang="ts">
 import { useCreateOrganization } from '@/composables/organization/create'
+import { consola } from 'consola';
 const { handleCreateOrganization, organizationPayload, loading, isFormEmpty } = useCreateOrganization()
 definePageMeta({
   layout: 'dashboard'
@@ -72,7 +68,18 @@ definePageMeta({
 const preview = ref(null) as any;
 const handleFileChange = (event: any) => {
   const file = event.target.files[0];
-  organizationPayload.value.logo = file
+  console.log(file, 'uploaded file')
+  const reader = new FileReader();
+      
+      reader.onload = () => {
+        organizationPayload.value.logo = reader.result
+        // this.imagePreview = reader.result;
+        // Here, you can send the base64 encoded image to your server
+        // For example, you can use Axios to make an HTTP request
+        // axios.post('/upload', { image: reader.result });
+      }
+      
+      reader.readAsDataURL(file);
   if (file) {
     preview.value = URL.createObjectURL(file);
   }

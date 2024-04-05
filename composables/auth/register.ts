@@ -1,7 +1,5 @@
 import { authApiFactory } from "@/apiFactory/auth";
-import { useStorage } from "@vueuse/core";
 
-const router = useRouter();
 export const useRegister = () => {
   const loading = ref(false);
   const registerPayload = ref({
@@ -11,36 +9,30 @@ export const useRegister = () => {
     password: "",
   });
 
-  const payload = {
-    firstName: registerPayload.value.firstName,
-    lastName: registerPayload.value.lastName,
-    email: registerPayload.value.email,
-    password: registerPayload.value.password,
-  };
-
   const handleRegister = async () => {
     loading.value = true;
     try {
+      const payload = {
+        firstName: registerPayload.value.firstName,
+        lastName: registerPayload.value.lastName,
+        email: registerPayload.value.email,
+        password: registerPayload.value.password,
+      };
+
       const response = await authApiFactory.register(payload);
-      router.push("/login");
       useNuxtApp().$toast.success("Account was successfully created.", {
         autoClose: 5000,
         dangerouslyHTMLString: true,
       });
-      return response.data;
+      useRouter().push("/login");
     } catch (error) {
-      // useNuxtApp().$toast.error(error.message, {
-      //   autoClose: 5000,
-      //   dangerouslyHTMLString: true,
-      // });
-      return error;
-    } finally {
-      useNuxtApp().$toast.success("Account was successfully created.", {
+      console.log(error, "error jere");
+      useNuxtApp().$toast.error(error.message, {
         autoClose: 5000,
         dangerouslyHTMLString: true,
       });
-      useStorage("user", payload), useRouter().push("/login");
-      // router.push("/login");
+      // return error;
+    } finally {
       loading.value = false;
     }
   };
@@ -56,10 +48,3 @@ export const useRegister = () => {
 
   return { registerPayload, handleRegister, loading, isFormEmpty };
 };
-
-// const notify = () => {
-//   useNuxtApp().$toast.info('Hello World.\n I am <b>Tom</b>', {
-//     autoClose: 5000,
-//     dangerouslyHTMLString: true,
-//   });
-// };

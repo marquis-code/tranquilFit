@@ -7,14 +7,14 @@ export const useCreateOrganizationMember = () => {
     description: "",
     website: "",
     logo: "",
-    actorId: "10",
-    organizationId: ""
+    // actorId: "10",
+    organizationId: useRoute().params.id
   });
 
   const handleCreateMember = async () => {
     loading.value = true;
     try {
-      const response = await organizationApiFactory.createOrganizationMember(
+      const response = await organizationApiFactory.createOrganizationMember(useRoute().params.id, 
         memberPayload
       );
       return response.data;

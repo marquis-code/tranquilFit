@@ -7,10 +7,10 @@ export const organizationApiFactory = {
     return axiosInstance.delete(`/organizations/${id}`);
   },
   createOrganizationMember(organizationId:string, payload: any) {
-    return axiosInstance.post(`organizations/${organizationId}/members`, payload);
+    return axiosInstance.post(`/organizations/${organizationId}/members`, payload);
   },
   getOrganizationMembers(organizationId: string) {
-    return axiosInstance.post(`/organizations/${organizationId}/members`);
+    return axiosInstance.get(`/organizations/${organizationId}/members`);
   },
   getEngagementSummary() {
     return axiosInstance.get('/story/engagement-summary');

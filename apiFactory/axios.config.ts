@@ -1,11 +1,11 @@
 import axios from "axios";
-const token = ref("");
+
 export const axiosInstance = axios.create({
-  baseURL: "http://doctrack.lordvidex.com/v1",
+  baseURL: "https://doctrack.lordvidex.com/v1",
 });
 
 axiosInstance.interceptors.request.use((config: any) => {
-  const token = "your_access_token"; // Fetch this token as per your auth flow
+  const token = localStorage.getItem("token")
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }

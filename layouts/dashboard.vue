@@ -83,15 +83,17 @@
                     </li>
                   </ul>
                 </li>
-                <li class="mt-auto">
-                  <nuxt-link @click="isOpen = false" to="/dashboard/organization/create"
-                    class="group -mx-2  justify-center items-center flex gap-x-3 rounded-md p-2 text-sm font-semibold bg-[#1F9D00] leading-6 text-white">
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M7 1.375V12.625M12.625 7H1.375" stroke="white" stroke-width="1.2" stroke-linecap="round"
-                        stroke-linejoin="round" />
-                    </svg>
-                    New organization
-                  </nuxt-link>
+                <li class="mt-auto w-full">
+                  <div class="w-full">
+                    <button @click="logOut"
+                      class="group -mx-2 flex justify-center items-center gap-x-3 rounded-md p-2.5 px-20 text-sm font-semibold bg-red-500 leading-6 text-white">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"
+                        stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M10 3H6a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h4M16 17l5-5-5-5M19.8 12H9" />
+                      </svg>
+                      Logout
+                    </button>
+                  </div>
                 </li>
               </ul>
             </nav>
@@ -134,15 +136,17 @@
                 </li>
               </ul>
             </li>
-            <li class="mt-auto">
-              <nuxt-link to="/dashboard/organization/create"
-                class="group -mx-2 flex justify-center items-center gap-x-3 rounded-md p-2.5 text-sm font-semibold bg-[#1F9D00] leading-6 text-white hover:bg-gray-800 hover:text-white">
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M7 1.375V12.625M12.625 7H1.375" stroke="white" stroke-width="1.2" stroke-linecap="round"
-                    stroke-linejoin="round" />
-                </svg>
-                New organization
-              </nuxt-link>
+            <li class="mt-auto w-full">
+              <div class="w-full">
+                <button @click="logOut"
+                  class="group -mx-2 flex justify-center items-center gap-x-3 rounded-md p-2.5 px-20 text-sm font-semibold bg-red-500 leading-6 text-white">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"
+                    stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M10 3H6a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h4M16 17l5-5-5-5M19.8 12H9" />
+                  </svg>
+                  Logout
+                </button>
+              </div>
             </li>
           </ul>
         </nav>
@@ -220,8 +224,10 @@
 </template>
 
 <script setup lang="ts">
+import { useLogin } from '@/composables/auth/login'
 import organizationLogo from '../assets/icons/organization.svg'
 import workflowLogo from '../assets/icons/workflow.svg'
+const { logOut } = useLogin()
 const isOpen = ref(false)
 const route = useRoute()
 

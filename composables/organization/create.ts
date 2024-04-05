@@ -1,8 +1,8 @@
 import { organizationApiFactory } from "@/apiFactory/organization";
-import { useFetchOrganization } from "@/composables/organization/fetch";
-import { generateUUID } from '@/utils/generateUUID';
-import { generateCurrentDateISO } from '@/utils/generateDate';
-const { organizationList } = useFetchOrganization();
+// import { useFetchOrganization } from "@/composables/organization/fetch";
+// import { generateUUID } from '@/utils/generateUUID';
+// import { generateCurrentDateISO } from '@/utils/generateDate';
+// const { organizationList } = useFetchOrganization();
 
 export const useCreateOrganization = () => {
   const loading = ref(false);
@@ -10,42 +10,35 @@ export const useCreateOrganization = () => {
     name: "",
     description: "",
     website: "",
-    logo: "",
-    actorId: "10",
+    logo: "" as any,
+    // actorId: "10",
   });
 
   const handleCreateOrganization = async () => {
     loading.value = true;
     try {
-      const response = await organizationApiFactory.createOrganization(
-        organizationPayload
-      );
+      const payload = {
+        name: organizationPayload.value.name,
+        description: organizationPayload.value.description,
+        website: organizationPayload.value.website,
+        logo: organizationPayload.value.logo,
+        // actorId: "10",
+      };
+      const response = await organizationApiFactory.createOrganization(payload);
       useNuxtApp().$toast.success("Organization was successfully created", {
         autoClose: 5000,
         dangerouslyHTMLString: true,
       });
+      useRouter().push("/dashboard/organization");
       return response.data;
     } catch (error) {
-      // useNuxtApp().$toast.success('Something went wrong', {
-      //   autoClose: 5000,
-      //   dangerouslyHTMLString: true,
-      // });
-      return error;
-    } finally {
-      useRouter().push("/dashboard/organization");
-      useNuxtApp().$toast.success("Organization was successfully created", {
-        autoClose: 8000,
+      console.log(error.message, error)
+      useNuxtApp().$toast.success(error.message, {
+        autoClose: 5000,
         dangerouslyHTMLString: true,
       });
-      organizationList.value.push({
-        id: generateUUID(),
-        name: organizationPayload.value.name,
-        description: organizationPayload.value.description,
-        createdAt: generateCurrentDateISO(),
-        website: organizationPayload.value.website,
-        logo: "data:image/svg+xml;base64,Sl",
-      });
-      useRouter().push("/dashboard/organization");
+      return error;
+    } finally {
       loading.value = false;
     }
   };

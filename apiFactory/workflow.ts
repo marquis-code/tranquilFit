@@ -24,4 +24,14 @@ export const workflowApiFactory = {
   }) {
     return axiosInstance.post("/field", payload);
   },
+  createWorkflow(payload: {
+    orgId: String;
+    name: String;
+    description: String;
+  }) {
+    return axiosInstance.post("/workflow", payload);
+  },
+  addStepToWorkflow(id: string, payload: any) {
+    return axiosInstance.patch(`/v1/workflow/${id}/steps`, payload);
+  },
 };
