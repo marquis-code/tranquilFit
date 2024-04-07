@@ -20,9 +20,8 @@ export const useCreateField = () => {
         description: form.value.desc,
         fieldType: form.value.fieldType,
       };
-      const response = await workflowApiFactory.createField(payload);
+      await workflowApiFactory.createField(payload);
       clearInputFields();
-      return response.data;
     } catch (error) {
       useNuxtApp().$toast.error(error.message, {
         autoClose: 5000,

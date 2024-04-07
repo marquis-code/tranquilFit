@@ -14,8 +14,8 @@ export const workflowApiFactory = {
   getWorkflows() {
     return axiosInstance.get("/workflow");
   },
-  updateWorkflowSteps(stepId: string, paylaod: any) {
-    return axiosInstance.patch(`step/${stepId}/fields`, paylaod);
+  updateWorkflowSteps(stepId: string, payload: any) {
+    return axiosInstance.patch(`/step/${stepId}/fields`, payload);
   },
   createField(payload: {
     name: String;
@@ -32,6 +32,12 @@ export const workflowApiFactory = {
     return axiosInstance.post("/workflow", payload);
   },
   addStepToWorkflow(id: string, payload: any) {
-    return axiosInstance.patch(`/v1/workflow/${id}/steps`, payload);
+    return axiosInstance.put(`/workflow/${id}/steps`, payload);
+  },
+  updateWorkflowStatus(id: string, payload: any) {
+    return axiosInstance.patch(`/workflow/${id}`, payload);
+  },
+  updateWorkflowStep(id: string, payload: any) {
+    return axiosInstance.patch(`/step/${id}`, payload);
   },
 };

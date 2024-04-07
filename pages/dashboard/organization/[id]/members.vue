@@ -9,7 +9,7 @@
                     <p class="mt-2 text-sm text-gray-700">A list of all organizations members</p>
                 </div>
                 <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-                    <button type="button" @click="showAddMemberSlideOver = true"
+                    <button type="button" @click="showMemberSlideForm = true"
                         class="block rounded-md bg-green-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Add
                         Member</button>
                 </div>
@@ -27,17 +27,15 @@
                                             Name
                                         </th>
                                         <th scope="col"
-                                            class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                                            Last Name</th>
+                                            class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Last Name
+                                        </th>
                                         <th scope="col"
-                                            class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                                            Email</th>
+                                            class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Email</th>
                                         <th scope="col"
                                             class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                                             Organization ID</th>
                                         <th scope="col"
-                                            class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                                            Role</th>
+                                            class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Role</th>
                                         <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
                                             <span class="sr-only">Edit</span>
                                         </th>
@@ -53,18 +51,15 @@
                                         <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ itm.lastName ||
                 'N/A' }}</td>
                                         <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ itm.email ||
-                'N/A'
-                                            }}</td>
+                'N/A' }}</td>
                                         <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ itm.orgId ||
-                'N/A'
-                                            }}</td>
+                'N/A' }}</td>
                                         <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ itm.role ||
-                'N/A'
-                                            }}</td>
-                                        <td
+                'N/A' }}</td>
+                                        <td v-if="userRole === 'ROLE_ADMIN_RO' || userRole === 'ROLE_ADMIN_RW'"
                                             class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                                            <a href="" @click.prevent="handleDeleteMember(itm.id)"
-                                                class="text-indigo-600 hover:text-indigo-900">Delete<span
+                                            <a href="" @click.prevent="deleteMember(itm.id)"
+                                                class="bg-red-500 text-white px-3 py-1.5 rounded-md">Delete<span
                                                     class="sr-only">
                                                 </span></a>
                                         </td>
@@ -74,10 +69,11 @@
                         </div>
                     </div>
                 </div>
-                <EmptyState title="No Organization available" desc="Please add an organization" v-else />
+                <EmptyState title="No Organization Member available" desc="Please add an organization" v-else />
             </div>
         </div>
-        <div v-if="showAddMemberSlideOver" class="relative z-50" aria-labelledby="slide-over-title" role="dialog"
+
+        <div v-if="showMemberSlideForm" class="relative z-50" aria-labelledby="slide-over-title" role="dialog"
             aria-modal="true">
             <!-- Background backdrop, show/hide based on slide-over state. -->
             <div class="fixed inset-0"></div>
@@ -91,10 +87,10 @@
                                     <div class="bg-indigo-700 px-4 py-6 sm:px-6">
                                         <div class="flex items-center justify-between">
                                             <h2 class="text-base font-semibold leading-6 text-white"
-                                                id="slide-over-title">Create New Member
+                                                id="slide-over-title">Create New Organization Member
                                             </h2>
                                             <div class="ml-3 flex h-7 items-center">
-                                                <button @click="showAddMemberSlideOver = false" type="button"
+                                                <button @click="showMemberSlideForm = false" type="button"
                                                     class="relative rounded-md bg-indigo-700 text-indigo-200 hover:text-white focus:outline-none focus:ring-2 focus:ring-white">
                                                     <span class="absolute -inset-2.5"></span>
                                                     <span class="sr-only">Close panel</span>
@@ -108,7 +104,7 @@
                                         </div>
                                         <div class="mt-1">
                                             <p class="text-sm text-indigo-300">Get started by filling in the information
-                                                below to create your new organization member.</p>
+                                                below to create your new member.</p>
                                         </div>
                                     </div>
                                     <div class="flex flex-1 flex-col justify-between">
@@ -116,41 +112,35 @@
                                             <div class="space-y-6 pb-5 pt-6">
                                                 <div>
                                                     <label for="project-name"
-                                                        class="block text-sm font-medium leading-6 text-gray-900">User ID</label>
+                                                        class="block text-sm font-medium leading-6 text-gray-900">User
+                                                        ID</label>
                                                     <div class="mt-2">
-                                                        <input placeholder="Enter field name" v-model="memberPayload.userId"
-                                                            type="text" name="project-name" id="project-name"
-                                                            class="block w-full text-sm rounded-md border-0 py-3 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                                        <input placeholder="Enter field name"
+                                                            v-model="memberPayload.userId" type="text" readonly disabled
+                                                            name="project-name" id="project-name"
+                                                            class="block w-full text-sm rounded-md border-0 py-3 font-semibold text-gray-950 cursor-not-allowed opacity-25 px-3 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                                     </div>
                                                 </div>
                                                 <div>
                                                     <label for="description"
-                                                        class="block text-sm font-medium leading-6 text-gray-900">Member
-                                                        Role</label>
+                                                        class="block text-sm font-medium leading-6 text-gray-900">Field
+                                                        Type</label>
                                                     <div class="mt-2">
                                                         <select v-model="memberPayload.role"
                                                             class="block w-full text-sm rounded-md border-0 py-3 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                                                            <option v-for="(itm, idx) in memberRoles" :key="idx"
+                                                            <option v-for="(itm, idx) in roleTypes" :key="idx"
                                                                 :value="itm.value">
                                                                 {{ itm.text }}
                                                             </option>
                                                         </select>
                                                     </div>
-                                                    <!-- <div class="flex px-4 py-4 justify-end items-end">
-                              <button type="button"
-                                class="rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">Reset</button>
-                              <button :disabled="!isFormEmpty" @click="createField" type="button"
-                                class="ml-4 inline-flex justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">{{
-                                processing
-                                ? 'processing...' : 'Save'}}</button>
-                            </div> -->
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="flex flex-shrink-0 justify-end px-4 py-4">
-                                    <button type="button"
+                                    <button type="button" @click="showMemberSlideForm = false"
                                         class="rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">Cancel</button>
                                     <button :disabled="!isFormEmpty" @click="handleAddMember" type="button"
                                         class="ml-4 inline-flex justify-center disabled:cursor-not-allowed disabled:opacity-25 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">{{
@@ -167,27 +157,58 @@
 </template>
 
 <script setup lang="ts">
+import Swal from "sweetalert2";
+import { useLogin } from '@/composables/auth/login'
 import { useAddOrganizationMember } from '@/composables/organization/addMember'
 import { useFetchOrganizationMembers } from '@/composables/organization/getMembers'
 import { useDeleteMember } from '@/composables/organization/ deleteMember'
-const { handleAddMember, memberPayload, loading: processing, isFormEmpty } = useAddOrganizationMember()
+const { userRole } = useLogin()
 const { fetchOrganizationMembers, organizationMembersList, loading } = useFetchOrganizationMembers()
 const { handleDeleteMember, loading: deleting } = useDeleteMember()
+const { handleAddMember, memberPayload, loading: processing, isFormEmpty } = useAddOrganizationMember()
 definePageMeta({
     layout: 'dashboard'
 })
 
-const showAddMemberSlideOver = ref(false)
-
-const memberRoles = reactive([
+const roleTypes = ref([
     {
         text: 'User',
         value: 'ROLE_USER'
     },
     {
-        text: 'Admin',
-        value: 'ROLE_ADMIN'
+        text: 'Administrator RO',
+        value: 'ROLE_ADMIN_RO'
+    },
+    {
+        text: 'Administrator RW',
+        value: 'ROLE_ADMIN_RW'
+    },
+    {
+        text: 'Owner',
+        value: 'ROLE_OWNER'
     }
 ])
+
 fetchOrganizationMembers()
+
+const deleteMember = (id: any) => {
+    Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+        console.log(result, 'result here')
+        if (result.isConfirmed) {
+            await handleDeleteMember(id)
+        } else {
+            Swal.fire("Cancelled", "Action was cancelled", "info");
+        }
+    });
+}
+
+const showMemberSlideForm = ref(false)
 </script>

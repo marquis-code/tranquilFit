@@ -14,7 +14,7 @@ export const useFetchOrganizationMembers = () => {
       const response = await organizationApiFactory.getOrganizationMembers(
         useRoute().params.id
       );
-      organizationMembersList.value = response.data;
+      organizationMembersList.value = response.data.users;
     } catch (error) {
       return error;
     } finally {

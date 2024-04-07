@@ -92,17 +92,29 @@ export const useLogin = () => {
     set: () => {},
   });
 
+  const userRole = computed({
+    get: () => {
+      if (!runtimeData.token?.value) return false;
+      return runtimeData?.user?.value != null || undefined || {}
+        ? runtimeData?.user?.value.role
+        : "";
+    },
+    set: () => {},
+  });
+
   const isFormEmpty = computed(() => {
     return !!(loginPayload.value.email && loginPayload.value.password);
   });
 
   return {
     handleLogin,
+    localstorageDate,
     loginPayload,
     loading,
     isFormEmpty,
     logOut,
     isLoggedIn,
     id,
+    userRole,
   };
 };

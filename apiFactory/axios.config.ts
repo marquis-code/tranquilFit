@@ -5,7 +5,7 @@ export const axiosInstance = axios.create({
 });
 
 axiosInstance.interceptors.request.use((config: any) => {
-  const token = localStorage.getItem("token")
+  const token = localStorage.getItem("token");
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
@@ -18,13 +18,15 @@ axiosInstance.interceptors.response.use(
   },
   (error) => {
     if (typeof error.response === "undefined") {
-      console.log("kindly check your network connection");
-    }
-
-    if (error.response.status === 401) {
-      console.log("Unauthorised ERROR");
+      useNuxtApp().$toast.error("kindly check your network connection", {
+        autoClose: 5000,
+        dangerouslyHTMLString: true,
+      });
     } else {
-      console.log(error.response);
+      useNuxtApp().$toast.error(error.response.data.message, {
+        autoClose: 5000,
+        dangerouslyHTMLString: true,
+      });
     }
   }
 );

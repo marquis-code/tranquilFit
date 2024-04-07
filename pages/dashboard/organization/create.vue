@@ -60,7 +60,6 @@
 
 <script setup lang="ts">
 import { useCreateOrganization } from '@/composables/organization/create'
-import { consola } from 'consola';
 const { handleCreateOrganization, organizationPayload, loading, isFormEmpty } = useCreateOrganization()
 definePageMeta({
   layout: 'dashboard'
@@ -73,10 +72,6 @@ const handleFileChange = (event: any) => {
       
       reader.onload = () => {
         organizationPayload.value.logo = reader.result
-        // this.imagePreview = reader.result;
-        // Here, you can send the base64 encoded image to your server
-        // For example, you can use Axios to make an HTTP request
-        // axios.post('/upload', { image: reader.result });
       }
       
       reader.readAsDataURL(file);

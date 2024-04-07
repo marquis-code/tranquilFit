@@ -3,21 +3,32 @@ import { workflowApiFactory } from "@/apiFactory/workflow";
 export const useUpdateWorkflowSteps = () => {
   const loading = ref(false);
   const stepsPayload = ref({
-    name: '',
-    desc: ''
-  })
+    fields: [],
+  });
 
   const updateWorkflowSteps = async (id: string) => {
     loading.value = true;
     try {
-      const response = await workflowApiFactory.updateWorkflowSteps(id, stepsPayload);
-      return response.data
+      await workflowApiFactory.updateWorkflowSteps(id, {
+        fieldIds: stepsPayload.value,
+      });
+      useNuxtApp().$toast.success('Fields were added successfully!', {
+        autoClose: 5000,
+        dangerouslyHTMLString: true,
+      });
     } catch (error) {
-      return error;
+      useNuxtApp().$toast.error(error.message, {
+        autoClose: 5000,
+        dangerouslyHTMLString: true,
+      });
     } finally {
       loading.value = false;
     }
   };
 
-  return { updateWorkflowSteps, stepsPayload, loading };
+  const prefillPayload = (data: any) => {
+    stepsPayload.value = data;
+  };
+
+  return { updateWorkflowSteps, loading, prefillPayload };
 };

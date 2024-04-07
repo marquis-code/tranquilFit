@@ -1,4 +1,5 @@
 import { workflowApiFactory } from "@/apiFactory/workflow";
+import { useLogin } from '@/composables/auth/login'
 export const useCreateWorkflow = () => {
   const workflowForm = ref({
     orgId: "" as any,
@@ -6,9 +7,10 @@ export const useCreateWorkflow = () => {
     description: "",
   }) as any;
   const creating = ref(false);
+  const { id } = useLogin()
   const createFlow = async () => {
     const payload = {
-      orgId: useRoute().params.id,
+      orgId: id.value,
       name: workflowForm.value.name,
       description: workflowForm.value.description,
     };
@@ -19,7 +21,8 @@ export const useCreateWorkflow = () => {
         autoClose: 5000,
         dangerouslyHTMLString: true,
       });
-      return result;
+      workflowForm.value.name = ''
+      workflowForm.value.description = ''
     } catch (error) {
       useNuxtApp().$toast.error("Something went wrong while saving workflow", {
         autoClose: 5000,

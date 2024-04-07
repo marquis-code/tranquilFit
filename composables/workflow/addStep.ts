@@ -4,27 +4,31 @@ const step = ref({
   description: "",
   index: "",
 });
-const currentIndex = ref(1);
-const workflowId = useRoute().params.id;
+const currentIndex = ref(0);
+const workflowId = ref('');
 export const useAddStepToWorkflow = () => {
   const loading = ref(false);
   const stepsArray = ref([]) as any;
-  const addStepToWorkflow = async () => {
+  const addStepToWorkflow = async (data: any) => {
+    const newArray = stepsArray.value.map(({index, ...rest}) => ({ ...rest }))
     const payload = {
-      steps: stepsArray.value,
+      steps: newArray,
     };
 
     try {
       loading.value = true;
       const response = await workflowApiFactory.addStepToWorkflow(
-        workflowId,
+        workflowId.value,
         payload
       );
-      console.log(response);
-      useNuxtApp().$toast.success('Steps added were saved successfully', {
-        autoClose: 5000,
-        dangerouslyHTMLString: true,
-      });
+      if (typeof response === "undefined") {
+        return;
+      } else {
+        useNuxtApp().$toast.success("Steps added were saved successfully", {
+          autoClose: 5000,
+          dangerouslyHTMLString: true,
+        });
+      }
     } catch (error) {
       useNuxtApp().$toast.success(error.message, {
         autoClose: 5000,
@@ -35,7 +39,8 @@ export const useAddStepToWorkflow = () => {
     }
   };
 
-  const handleTemporarySave = (data: any) => {
+  const handleTemporarySave = (selectedData: any, data: any) => {
+    workflowId.value = selectedData
     const alreadyExist = stepsArray.value.find(
       (itm: any) => itm.index === data.index
     );
@@ -47,12 +52,12 @@ export const useAddStepToWorkflow = () => {
       return;
     } else {
       stepsArray.value.push({
-        id: workflowId,
+        // id: selectedData,
         index: currentIndex.value,
         title: data.title,
         description: data.description,
       });
-      currentIndex.value++
+      currentIndex.value++;
     }
   };
 

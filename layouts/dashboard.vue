@@ -168,7 +168,7 @@
           </button>
         </div>
         <div class="flex items-center justify-between w-full">
-          <h2 class="font-semibold text-sm lg:text-base">Evans Organization</h2>
+          <h2 class="font-semibold text-sm lg:text-base">Welcome {{ user || '' }}</h2>
           <div class="flex justify-center items-center gap-x-6">
             <div>
               <button
@@ -227,7 +227,7 @@
 import { useLogin } from '@/composables/auth/login'
 import organizationLogo from '../assets/icons/organization.svg'
 import workflowLogo from '../assets/icons/workflow.svg'
-const { logOut } = useLogin()
+const { logOut, localstorageDate } = useLogin()
 const isOpen = ref(false)
 const route = useRoute()
 
@@ -240,6 +240,10 @@ const sidebarItems = [
 function getNavItemClass(itemRoute: any) {
   return route.path === itemRoute ? 'active' : '';
 }
+
+const user = computed(() => {
+  return `${localstorageDate.user.value.firstName} ${localstorageDate.user.value.lastName}`
+})
 
 </script>
 

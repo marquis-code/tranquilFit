@@ -16,7 +16,7 @@ export const organizationApiFactory = {
     return axiosInstance.get('/story/engagement-summary');
   },
   deleteOrganizationMember(organizationId: string, userId: string) {
-    return axiosInstance.post(`organizations/${organizationId}/members/${userId}`);
+    return axiosInstance.delete(`organizations/${organizationId}/members/${userId}`);
   },
   createOrganization(payload: any) {
     return axiosInstance.post(`/organizations`, payload);

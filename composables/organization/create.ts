@@ -1,8 +1,4 @@
 import { organizationApiFactory } from "@/apiFactory/organization";
-// import { useFetchOrganization } from "@/composables/organization/fetch";
-// import { generateUUID } from '@/utils/generateUUID';
-// import { generateCurrentDateISO } from '@/utils/generateDate';
-// const { organizationList } = useFetchOrganization();
 
 export const useCreateOrganization = () => {
   const loading = ref(false);
@@ -11,7 +7,6 @@ export const useCreateOrganization = () => {
     description: "",
     website: "",
     logo: "" as any,
-    // actorId: "10",
   });
 
   const handleCreateOrganization = async () => {
@@ -22,17 +17,17 @@ export const useCreateOrganization = () => {
         description: organizationPayload.value.description,
         website: organizationPayload.value.website,
         logo: organizationPayload.value.logo,
-        // actorId: "10",
       };
       const response = await organizationApiFactory.createOrganization(payload);
-      useNuxtApp().$toast.success("Organization was successfully created", {
-        autoClose: 5000,
-        dangerouslyHTMLString: true,
-      });
-      useRouter().push("/dashboard/organization");
-      return response.data;
+      if (response.status === 200) {
+        useNuxtApp().$toast.success("Organization was successfully created", {
+          autoClose: 5000,
+          dangerouslyHTMLString: true,
+        });
+        useRouter().push("/dashboard/organization");
+      }
     } catch (error) {
-      console.log(error.message, error)
+      console.log(error.message, error);
       useNuxtApp().$toast.success(error.message, {
         autoClose: 5000,
         dangerouslyHTMLString: true,
