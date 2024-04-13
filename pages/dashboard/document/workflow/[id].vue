@@ -17,6 +17,10 @@
                                     <tr>
                                         <th scope="col"
                                             class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
+                                            Document ID
+                                        </th>
+                                        <th scope="col"
+                                            class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
                                             Name
                                         </th>
                                         <th scope="col"
@@ -30,16 +34,20 @@
                                         <th scope="col"
                                             class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">CreatedAt
                                         </th>
-                                        <th scope="col"
+                                        <!-- <th scope="col"
                                             class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Actions
-                                        </th>
+                                        </th> -->
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y divide-gray-200 bg-white">
                                     <tr v-for="(itm, idx) in documentList" :key="idx">
                                         <td
                                             class="whitespace-nowrap cursor-pointer py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                                            {{ itm.name || 'N/A' }}
+                                            {{ itm.id || 'N/A' }}
+                                        </td>
+                                        <td
+                                            class="whitespace-nowrap cursor-pointer py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+                                            {{ itm.workflow.name || 'N/A' }}
                                         </td>
                                         <td class="whitespace-nowrap cursor-pointer px-3 py-4 text-sm text-gray-500">{{
                     itm.workflow.description ||
@@ -59,14 +67,14 @@
                     'N/A' }}
                                         </td>
                                         <td class="whitespace-nowrap cursor-pointer px-3 py-4 text-sm text-gray-500">{{
-                    itm.workflow.createdAt ||
+                                            itm.workflow.createdAt ||
                                             'N/A' }}
                                         </td>
-                                        <td class="whitespace-nowrap cursor-pointer px-3 py-4 text-sm text-gray-500">
+                                        <!-- <td class="whitespace-nowrap cursor-pointer px-3 py-4 text-sm text-gray-500">
                                             <button @click="viewDocument(itm)"
                                                 class="bg-black text-white px-3 py-2 rounded-md text-sm">View
                                                 details</button>
-                                        </td>
+                                        </td> -->
                                     </tr>
                                 </tbody>
                             </table>

@@ -1,15 +1,13 @@
 import { documentApiFactory } from "@/apiFactory/documents";
-export const useGetDocumentById = () => {
+export const useGetStepsByDocumentId = () => {
   const documentId = useRoute().params.id;
-  const documentObject = ref({}) as any;
+  const documentSteps = ref([]) as any;
   const loading = ref(false);
-  const getDocumentById = async () => {
+  const getStepsByDocumentId = async () => {
     loading.value = true;
     try {
-      const response = await documentApiFactory.getDocumentsById(documentId);
-      if(typeof response !== "undefined") {
-        documentObject.value = response.data.document;
-      }
+      const response = await documentApiFactory.getDocumentBasedOnStep(documentId);
+      documentSteps.value = response.data.steps;
     } catch (error) {
       useNuxtApp().$toast.success(error.message, {
         autoClose: 5000,
@@ -20,5 +18,5 @@ export const useGetDocumentById = () => {
     }
   };
 
-  return { getDocumentById, documentObject, loading };
+  return { getStepsByDocumentId , documentSteps, loading };
 };

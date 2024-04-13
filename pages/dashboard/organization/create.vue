@@ -67,7 +67,6 @@ definePageMeta({
 const preview = ref(null) as any;
 const handleFileChange = (event: any) => {
   const file = event.target.files[0];
-  console.log(file, 'uploaded file')
   const reader = new FileReader();
       
       reader.onload = () => {

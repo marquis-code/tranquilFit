@@ -7,7 +7,6 @@ export const useGetAllDocuments = () => {
     loading.value = true;
     try {
       const response = await documentApiFactory.getDocumentsList();
-      console.log(response.data, "res here");
       documentsList.value = response.data.documents;
     } catch (error) {
       useNuxtApp().$toast.error(error.message, {

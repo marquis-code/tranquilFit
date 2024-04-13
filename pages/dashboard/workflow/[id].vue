@@ -6,6 +6,8 @@
                 <h1 class="text-base font-semibold leading-6 text-gray-900">Workflows Details</h1>
                 <p class="mt-2 text-sm text-gray-700">A brief information lto show workflow details</p>
             </div>
+            <button @click="redirectedWorkflowDocuments" type="button"
+            class="relative inline-flex items-center rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2">View workflow documents</button>
         </div>
         <div v-if="!loading && Object.keys(workflowObject).length"
             class="flow-root rounded-lg border border-gray-100 py-3 shadow-sm">
@@ -311,6 +313,10 @@ const onFieldChange = (value: string, checked: boolean) => {
 const addFieldToStep = () => {
     prefillPayload(selectedFieldsArray.value)
     updateWorkflowSteps(selectedStep.value.id)
+}
+
+const redirectedWorkflowDocuments = () => {
+  useRouter().push(`/dashboard/document/workflow/${workflowObject.value.id}`)
 }
 
 

@@ -26,7 +26,6 @@ export const useRegister = () => {
       });
       useRouter().push("/login");
     } catch (error) {
-      console.log(error, "error jere");
       useNuxtApp().$toast.error(error.message, {
         autoClose: 5000,
         dangerouslyHTMLString: true,

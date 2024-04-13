@@ -10,7 +10,6 @@ export const useFetchOrganization = () => {
     loading.value = true;
     try {
       const response = await organizationApiFactory.fetchOrganization();
-      console.log(response.data, 'res here')
       organizationList.value = response.data.organizations;
     } catch (error) {
       useNuxtApp().$toast.error(error.message, {

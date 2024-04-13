@@ -27,7 +27,6 @@ export const useCreateOrganization = () => {
         useRouter().push("/dashboard/organization");
       }
     } catch (error) {
-      console.log(error.message, error);
       useNuxtApp().$toast.success(error.message, {
         autoClose: 5000,
         dangerouslyHTMLString: true,

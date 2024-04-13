@@ -6,8 +6,12 @@ export const useGetDocumentByWorkflowId = () => {
   const getDocumentByWWorkflowId = async () => {
     loading.value = true;
     try {
-      const response = await documentApiFactory.getDocumentBasedOnWorkflow(workflowId);
-      documentList.value = response.data.documents;
+      const response = await documentApiFactory.getDocumentBasedOnWorkflow(
+        workflowId
+      );
+      if (typeof response !== "undefined") {
+        documentList.value = response.data.documents;
+      }
     } catch (error) {
       useNuxtApp().$toast.success(error.message, {
         autoClose: 5000,

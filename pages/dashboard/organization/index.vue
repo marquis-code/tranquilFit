@@ -1,7 +1,7 @@
 <template>
-  <div class="px-4 sm:px-6 lg:px-8">
+  <div class="px-3 sm:px-6 md:px-8">
     <button @click="$router.back()" class="text-white bg-black rounded-full text-sm mb-4 px-4 py-2">Go Back</button>
-    <div class="sm:flex sm:items-center border-[0.6px] rounded-tr-md rounded-tl-md p-3">
+    <div class="sm:flex sm:items-center lg:border-[0.6px] lg:rounded-tr-md lg:rounded-tl-md p-3 w-full">
       <div class="sm:flex-auto">
         <h1 class="text-base font-semibold leading-6 text-gray-900">Organizations</h1>
         <p class="mt-2 text-sm text-gray-700">A list of all organizations</p>
@@ -16,7 +16,7 @@
     <div class="flow-root">
       <div v-if="organizationList.length && !fetching" class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
         <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-          <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
+          <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-br-lg rounded-bl-lg">
             <table class="min-w-full divide-y divide-gray-300">
               <thead class="bg-gray-50">
                 <tr>
@@ -101,7 +101,6 @@ const viewOrganization = (itm: any) => {
 
 function openDeleteConfirmation() {
   openModal('Are you sure you want to delete this user?', () => {
-    console.log('User deletion confirmed.')
     // Add logic to delete the user here.
   })
 }
@@ -116,7 +115,6 @@ const deleteOrganization = (id: any) => {
     cancelButtonColor: "#d33",
     confirmButtonText: "Yes, delete it!",
   }).then(async (result) => {
-    console.log(result, 'result here')
     if (result.isConfirmed) {
       await handleDeleteOrganization(id)
     } else {

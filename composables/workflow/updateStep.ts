@@ -14,7 +14,6 @@ export const useUpdateSteps = () => {
         id,
         payload.value
       );
-      console.log(response, 'res here')
       if (typeof response !== "undefined") {
         useNuxtApp().$toast.success("Fields were added successfully!", {
           autoClose: 5000,

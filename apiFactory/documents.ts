@@ -16,7 +16,7 @@ export const documentApiFactory = {
   getDocumentBasedOnWorkflow(id: string) {
     return axiosInstance.get(`/document/workflow/${id}`);
   },
-  updateDocumentStep(payload: any){
-    return axiosInstance.post("/document/${documentId}/step/${documentStepId}/event", payload);
+  updateDocumentStep(documentId: string, documentStepId: string, payload: any){
+    return axiosInstance.post(`/document/${documentId}/step/${documentStepId}/event`, payload);
   }
 };

@@ -7,7 +7,6 @@ export const useGetWorkflowById = () => {
     loading.value = true;
     try {
       const response = await workflowApiFactory.getWorkflowsById(workflowId);
-      console.log(response, 'response here')
       workflowObject.value = response.data.workflow;
     } catch (error) {
       useNuxtApp().$toast.success(error.message, {

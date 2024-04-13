@@ -21,10 +21,13 @@
               <table class="min-w-full divide-y divide-gray-300">
                 <thead class="bg-gray-50">
                   <tr>
-                    <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Name
+                    <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
+                      Document Id
                     </th>
                     <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Description</th>
                     <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Steps</th>
+                    <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Steps Completed
+                    </th>
                     <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Status</th>
                     <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">CreatedAt</th>
                     <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Actions</th>
@@ -34,7 +37,7 @@
                   <tr v-for="(itm, idx) in documentsList" :key="idx">
                     <td
                       class="whitespace-nowrap cursor-pointer py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                      {{ itm.name || 'N/A' }}
+                      {{ itm.id || 'N/A' }}
                     </td>
                     <td class="whitespace-nowrap cursor-pointer px-3 py-4 text-sm text-gray-500">{{
             itm.workflow.description ||
@@ -46,6 +49,9 @@
                       <span v-else class="text-sm text-gray-500 font-semibold">No step has been added to this
                         workflow </span>
                     </td>
+                    <td class="whitespace-nowrap cursor-pointer px-3 py-4 text-sm text-gray-500">
+                      {{ itm.stepsCompleted || 'Nil' }}
+                    </td>
                     <td class="whitespace-nowrap cursor-pointer px-3 py-4 text-sm text-gray-500">{{ itm.workflow.status
             ||
             'N/A' }}
@@ -55,8 +61,13 @@
             'N/A' }}
                     </td>
                     <td class="whitespace-nowrap cursor-pointer px-3 py-4 text-sm text-gray-500">
-                      <button @click="viewDocument(itm)" class="bg-black text-white px-3 py-2 rounded-md text-sm">View
-                        details</button>
+                      <div class="flex justify-between items-center">
+                        <button @click="viewDocument(itm)" class="bg-black text-white px-3 py-2 rounded-md text-sm">View
+                          details</button>
+                        <nuxt-link :to="`/dashboard/document/workflow/${itm.workflow.id}`"
+                          class="block rounded-md bg-green-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                          Get document by workflow</nuxt-link>
+                      </div>
                     </td>
                   </tr>
                 </tbody>

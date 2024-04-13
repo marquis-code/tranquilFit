@@ -201,7 +201,6 @@ const deleteMember = (id: any) => {
         cancelButtonColor: "#d33",
         confirmButtonText: "Yes, delete it!",
     }).then(async (result) => {
-        console.log(result, 'result here')
         if (result.isConfirmed) {
             await handleDeleteMember(id)
         } else {
