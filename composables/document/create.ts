@@ -6,17 +6,32 @@ export const useCreateDocument = () => {
     workflowId: ''
   })
 
-  const createDocument = async (id: string) => {
+  const createDocument = async () => {
     loading.value = true;
     try {
       const response = await documentApiFactory.createDocument(documentPayload.value);
-      return response.data
+      if (typeof response === "undefined") {
+        return;
+      } else {
+        useNuxtApp().$toast.success('New document was successfully created', {
+          autoClose: 5000,
+          dangerouslyHTMLString: true,
+        });
+      }
     } catch (error) {
-      return error;
+      useNuxtApp().$toast.success(error.message, {
+        autoClose: 5000,
+        dangerouslyHTMLString: true,
+      });
     } finally {
       loading.value = false;
     }
   };
 
-  return { createDocument, documentPayload, loading };
+
+  const isCreateFormEmpty = computed(() => {
+    return documentPayload.value.workflowId
+  })
+
+  return { createDocument, documentPayload, loading, isCreateFormEmpty };
 };
