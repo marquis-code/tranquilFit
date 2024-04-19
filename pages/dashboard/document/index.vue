@@ -22,7 +22,7 @@
                 <thead class="bg-gray-50">
                   <tr>
                     <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
-                      Document Id
+                     No
                     </th>
                     <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Description</th>
                     <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Steps</th>
@@ -37,7 +37,7 @@
                   <tr v-for="(itm, idx) in documentsList" :key="idx">
                     <td
                       class="whitespace-nowrap cursor-pointer py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                      {{ itm.id || 'N/A' }}
+                      {{ idx + 1 || 'N/A' }}
                     </td>
                     <td class="whitespace-nowrap cursor-pointer px-3 py-4 text-sm text-gray-500">{{
             itm.workflow.description ||

@@ -14,7 +14,7 @@
       </div>
     </div>
     <div class="flow-root">
-      <div v-if="organizationList.length && !fetching" class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+      <div v-if="computedOrganizations.length && !fetching" class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
         <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
           <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-br-lg rounded-bl-lg">
             <table class="min-w-full divide-y divide-gray-300">
@@ -32,7 +32,7 @@
                 </tr>
               </thead>
               <tbody class="divide-y divide-gray-200 bg-white">
-                <tr v-for="(itm, idx) in organizationList" :key="idx">
+                <tr v-for="(itm, idx) in computedOrganizations" :key="idx">
                   <td class="whitespace-nowrap cursor-pointer px-3 py-4 text-sm text-gray-500">
                     <svg v-if="!itm.logo?.length" xmlns="http://www.w3.org/2000/svg" width="37" height="37"
                       viewBox="0 0 24 24" fill="#000">
@@ -50,7 +50,8 @@
                     }}</td>
                   <td class="whitespace-nowrap cursor-pointer px-3 py-4 text-sm text-gray-500">{{ itm.website || 'N/A'
                     }}</td>
-                  <td v-if="userRole !== 'ROLE_USER'" class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+                  <td v-if="userRole !== 'ROLE_USER'"
+                    class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                     <div class="flex gap-x-3">
                       <a href="" @click.prevent="deleteOrganization(itm.id)"
                         class="text-white px-6 py-2 rounded-md bg-red-500 text-sm">{{ loading ? 'Deleting...' :
@@ -66,7 +67,8 @@
           </div>
         </div>
       </div>
-      <div v-else-if="fetching && !organizationList.length" class="bg-white rounded-lg shadow-md p-4 animate-pulse">
+      <div v-else-if="fetching && !computedOrganizations.length"
+        class="bg-white rounded-lg shadow-md p-4 animate-pulse">
         <!-- Header -->
         <!-- <div class="w-2/3 h-4 bg-gray-300 rounded mb-2"></div> -->
         <!-- Body -->
@@ -94,6 +96,15 @@ definePageMeta({
   layout: 'dashboard'
 })
 fetchOrganizations()
+const user = ref(null) as any
+const computedOrganizations = computed(() => {
+  if (process.client) {
+    const localstorageData = localStorage.getItem('user') as any
+    user.value = JSON.parse(localstorageData)
+  }
+  // return organizationList.value.find((org: any) => org.id === user.value.orgId)
+  return organizationList.value.filter((org: any) => org.id === user.value?.orgId)
+})
 
 const viewOrganization = (itm: any) => {
   router.push(`/dashboard/organization/${itm.id}`)

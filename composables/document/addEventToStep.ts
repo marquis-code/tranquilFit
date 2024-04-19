@@ -3,7 +3,7 @@ import { documentApiFactory } from "@/apiFactory/documents";
 export const useAddEventToStep = () => {
   const loading = ref(false);
   const requestPayload = ref({
-    actor: "",
+    actor: "ACTOR_ADMIN",
     type: "",
     message: "",
     createdAt: new Date(),

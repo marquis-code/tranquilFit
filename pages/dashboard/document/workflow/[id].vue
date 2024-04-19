@@ -17,8 +17,11 @@
                                     <tr>
                                         <th scope="col"
                                             class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
-                                            Document ID
+                                            No
                                         </th>
+                                        <th scope="col"
+                                            class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                                            Steps completed</th>
                                         <th scope="col"
                                             class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
                                             Name
@@ -43,8 +46,12 @@
                                     <tr v-for="(itm, idx) in documentList" :key="idx">
                                         <td
                                             class="whitespace-nowrap cursor-pointer py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                                            {{ itm.id || 'N/A' }}
+                                            {{ idx + 1 || 'N/A' }}
                                         </td>
+                                        <td
+                                        class="whitespace-nowrap cursor-pointer py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+                                        {{ itm.stepsCompleted || 'N/A' }}
+                                    </td>
                                         <td
                                             class="whitespace-nowrap cursor-pointer py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
                                             {{ itm.workflow.name || 'N/A' }}

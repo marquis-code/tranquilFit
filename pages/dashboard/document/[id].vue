@@ -32,13 +32,15 @@
                         <table class="min-w-full divide-y divide-gray-300">
                             <thead>
                                 <tr>
-                                    <th scope="col"
+                                    <!-- <th scope="col"
                                         class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0">
-                                        ID</th>
+                                        ID</th> -->
                                     <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                                         Step Title</th>
                                     <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                                         Step Description</th>
+                                    <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                                        Events</th>
                                     <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                                         Completed At</th>
                                     <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-0">
@@ -48,15 +50,40 @@
                             </thead>
                             <tbody class="divide-y divide-gray-200">
                                 <tr v-for="(itm, idx) in documentSteps" :key="idx">
-                                    <td
+                                    <!-- <td
                                         class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">
-                                        {{ itm.id || 'Nil' }}</td>
+                                        {{ itm.id || 'Nil' }}</td> -->
                                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"> {{
             itm.step.title ||
             'N/A' }}</td>
                                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"> {{
             itm.step.description ||
             'N/A' }}</td>
+                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                        <div v-if="itm.events.length" class="space-y-3 overflow-y-auto h-32">
+                                            <div v-for="(item, idx) in itm.events" :key="idx"
+                                                class="border bg-white shadow p-3 rounded-md space-y-2.5">
+                                                <div class="flex justify-between items-center text-sm">
+                                                    <p class="font-semibold text-gray-900 text-xs">Actor</p>
+                                                    <p class="text-xs font-light">{{ item.actor || 'N/A' }}</p>
+                                                </div>
+                                                <div class="flex justify-between items-center text-sm">
+                                                    <p class="font-semibold text-gray-900 text-xs">Type</p>
+                                                    <p class="text-xs font-light">{{ item.type || 'N/A' }}</p>
+                                                </div>
+                                                <div class="flex justify-between items-center text-sm">
+                                                    <p class="font-semibold text-gray-900 text-xs">Message</p>
+                                                    <p class="text-xs font-light">{{ item.message || 'N/A' }}</p>
+                                                </div>
+                                                <div class="flex justify-between items-center text-sm">
+                                                    <p class="font-semibold text-gray-900 text-xs">Created At</p>
+                                                    <p class="text-xs font-light">{{ item.createdAt || 'N/A' }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <p v-else class="text-sm font-medium">No Event has been added</p>
+
+                                    </td>
                                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"> {{
             itm.completedAt || 'N/A'
         }}</td>
@@ -227,7 +254,7 @@ const handleSelectedStep = (item: any) => {
 
 const handleFormSubmission = async () => {
     const updatedPayload = {
-        actor: 'ACTOR_USER',
+        actor: 'ACTOR_ADMIN',
         type: form.value.type,
         createdAt: form.value.createdAt,
         ...(form.value.type === 'TYPE_COMMENT' && { message: form.value.message })
