@@ -11,8 +11,8 @@ export const workflowApiFactory = {
   getWorkflowsById(id: string) {
     return axiosInstance.get(`/workflow/${id}`);
   },
-  getWorkflows() {
-    return axiosInstance.get("/workflow");
+  getWorkflows(id) {
+    return axiosInstance.get(`/workflow?orgId=${id}`);
   },
   updateWorkflowSteps(stepId: string, payload: any) {
     return axiosInstance.patch(`/step/${stepId}/fields`, payload);

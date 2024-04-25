@@ -102,6 +102,15 @@ export const useLogin = () => {
     set: () => {},
   });
 
+  const user = computed({
+    get: () => {
+      if (!runtimeData.token?.value) return false;
+      return runtimeData?.user?.value != null || undefined || {}
+        ? runtimeData?.user?.value
+        : "";
+    },
+    set: () => {},
+  });
   const isFormEmpty = computed(() => {
     return !!(loginPayload.value.email && loginPayload.value.password);
   });
@@ -116,5 +125,6 @@ export const useLogin = () => {
     isLoggedIn,
     id,
     userRole,
+    user
   };
 };

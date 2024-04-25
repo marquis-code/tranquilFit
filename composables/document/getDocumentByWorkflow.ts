@@ -4,12 +4,11 @@ export const useGetDocumentByWorkflowId = () => {
   const documentList = ref([]) as any;
   const loading = ref(false);
   const getDocumentByWWorkflowId = async (id: string) => {
-    console.log(id, 'id from composable')
-    workflowId.value = id
+    const updatedWorkflowId = workflowId.value ? workflowId.value : id
     loading.value = true;
     try {
       const response = await documentApiFactory.getDocumentBasedOnWorkflow(
-        workflowId.value
+        updatedWorkflowId
       );
       if (typeof response !== "undefined") {
         documentList.value = response.data.documents;
