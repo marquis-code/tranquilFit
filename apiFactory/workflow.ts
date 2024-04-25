@@ -32,10 +32,10 @@ export const workflowApiFactory = {
     return axiosInstance.post("/workflow", payload);
   },
   addStepToWorkflow(id: string, payload: any) {
-    return axiosInstance.put(`/workflow/${id}/steps`, payload);
+    return axiosInstance.patch(`/workflow/${id}/steps`, payload);
   },
   updateWorkflowStatus(id: string, payload: any) {
-    return axiosInstance.patch(`/workflow/${id}`, payload);
+    return axiosInstance.patch(`/workflow/${id}?status=${payload.status}`);
   },
   updateWorkflowStep(id: string, payload: any) {
     return axiosInstance.patch(`/step/${id}`, payload);

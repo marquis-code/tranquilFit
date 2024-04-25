@@ -7,7 +7,8 @@
                 <p class="mt-2 text-sm text-gray-700">A brief information lto show workflow details</p>
             </div>
             <button @click="redirectedWorkflowDocuments" type="button"
-            class="relative inline-flex items-center rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2">View workflow documents</button>
+                class="relative inline-flex items-center rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2">View
+                workflow documents</button>
         </div>
         <div v-if="!loading && Object.keys(workflowObject).length"
             class="flow-root rounded-lg border border-gray-100 py-3 shadow-sm">
@@ -33,23 +34,21 @@
                         </div>
                     </dd>
                 </div>
-
                 <div class="grid grid-cols-1 gap-1 p-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">
                     <dt class="font-medium text-gray-900">Steps</dt>
                     <dd v-if="workflowObject.steps.length" class="text-gray-700 sm:col-span-2">
                         <div class="border-b border-gray-200 bg-white px-4 py-5 sm:px-6">
-                            <div v-for="(item, idx) in workflowObject.steps" :key="idx"
+                            <div v-for="(item, idx) in workflowSteps" :key="idx"
                                 class="-ml-4 -mt-4 flex flex-wrap border-gray-400 border-b-[0.6px] last:border-b-0 py-2 items-center justify-between sm:flex-nowrap">
                                 <div class="ml-4 mt-4">
                                     <h3 class="text-base font-semibold leading-6 text-gray-900"><span
-                                            class="text-sm font-medium text-gray-500">Title:</span> {{
-            item.title }}</h3>
+                                            class="text-sm font-medium text-gray-500">Title:</span> {{item.title }}</h3>
                                     <p class="mt-1 text-sm text-gray-900"><span
-                                            class="text-sm font-medium text-gray-500">Description:</span> {{
-            item.description }}</p>
+                                            class="text-sm font-medium text-gray-500">Description:</span> {{item.description }}</p>
                                     <p class="mt-1 text-sm text-gray-900"><span
-                                            class="text-sm font-medium text-gray-500">Created At:</span> {{
-            item.createdAt }}</p>
+                                            class="text-sm font-medium text-gray-500">Created At:</span> {{item.createdAt }}</p>
+                                            <p class="mt-1 text-sm text-gray-900"><span
+                                                class="text-sm font-medium text-gray-500">Fields Count:</span> {{item.fieldsCount }}</p>       
                                 </div>
                                 <div class="ml-4 mt-4 flex-shrink-0 flex gap-x-3 items-center">
                                     <button @click="handleUpdateForm(item)" type="button"
@@ -270,7 +269,7 @@ import { useUpdateSteps } from '@/composables/workflow/updateStep'
 import { useGetWorkflowById } from '@/composables/workflow/id'
 import { useUpdateWorkflowStatus } from '@/composables/workflow/updateWorkflowStatus'
 import { useFetchWorkflowsFields } from '@/composables/workflow/getWorkflowsFields'
-const { getWorkflowById, workflowObject, loading } = useGetWorkflowById()
+const { getWorkflowById, workflowObject, workflowSteps, loading } = useGetWorkflowById()
 const { fetchWorkflowFields, workflowFields, loading: fetching } = useFetchWorkflowsFields()
 import { useUpdateWorkflowSteps } from '@/composables/workflow/updateWorkflowStep'
 const { updateWorkflowSteps, loading: processing, prefillPayload } = useUpdateWorkflowSteps()
@@ -316,7 +315,7 @@ const addFieldToStep = () => {
 }
 
 const redirectedWorkflowDocuments = () => {
-  useRouter().push(`/dashboard/document/workflow/${workflowObject.value.id}`)
+    useRouter().push(`/dashboard/document/workflow/${workflowObject.value.id}`)
 }
 
 

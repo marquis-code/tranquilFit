@@ -325,7 +325,7 @@
                                 <p class="text-xs font-light">{{ step.description }}
                                 </p>
                               </div>
-                              <a href="#"
+                              <!-- <a href="#"
                                 class="text-center text-sm bg-white rounded-full p-2 shadow-md text-white hover:text-gray-300">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
                                   fill="none" stroke="#4a4a4a" stroke-width="2.5" stroke-linecap="round"
@@ -333,7 +333,7 @@
                                   <line x1="18" y1="6" x2="6" y2="18"></line>
                                   <line x1="6" y1="6" x2="18" y2="18"></line>
                                 </svg>
-                              </a>
+                              </a> -->
                             </div>
                           </div>
                         </section>
