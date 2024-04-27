@@ -3,7 +3,7 @@
         <div class="lg:flex lg:h-full lg:flex-col px-6 lg:px-0 container mx-auto">
             <header class="flex items-center justify-between border-b border-gray-200 px-6 py-4 lg:flex-none">
                 <h1 class="text-base font-semibold leading-6 text-gray-900">
-                    <time datetime="2022-01" data-aos="zoom-out-right">January 2022</time>
+                    <time datetime="2022-01" data-aos="zoom-out-right">April 2024</time>
                 </h1>
                 <div class="flex items-center">
                     <div class="relative flex items-center rounded-md bg-white shadow-sm md:items-stretch">
@@ -70,12 +70,12 @@
                             </div>
                         </div>
                         <div class="ml-6 h-6 w-px bg-gray-300"></div>
-                        <button type="button"
+                        <button type="button"  @click="showViewTypes = true"
                             class="ml-6 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Add
                             event</button>
                     </div>
                     <div class="relative ml-6 md:hidden">
-                        <button type="button"
+                        <button type="button" @click="showViewTypes = true"
                             class="-mx-2 flex items-center rounded-full border border-transparent p-2 text-gray-400 hover:text-gray-500"
                             id="menu-0-button" aria-expanded="false" aria-haspopup="true">
                             <span class="sr-only">Open menu</span>
@@ -95,7 +95,7 @@
                   From: "transform opacity-100 scale-100"
                   To: "transform opacity-0 scale-95"
               -->
-                        <div class="absolute right-0 z-10 mt-3 w-36 origin-top-right divide-y divide-gray-100 overflow-hidden rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                        <div v-if="showViewTypes" class="absolute right-0 z-10 mt-3 w-36 origin-top-right divide-y divide-gray-100 overflow-hidden rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
                             role="menu" aria-orientation="vertical" aria-labelledby="menu-0-button" tabindex="-1">
                             <div class="py-1" role="none">
                                 <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
