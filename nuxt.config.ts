@@ -3,7 +3,7 @@ export default {
   target: "static",
   app: {
     head: {
-      title: "National Profile Admin",
+      title: "TranquilFit",
       htmlAttrs: { lang: "en" },
       meta: [
         { charset: "utf-8" },
@@ -13,6 +13,7 @@ export default {
       link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.svg" }],
     },
   },
+  plugins: ["~/plugins/aos.client.ts"],
   modules: ["@nuxtjs/tailwindcss"],
   css: ["/assets/css/main.css"],
   tailwindcss: {

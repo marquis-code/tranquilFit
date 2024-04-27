@@ -1,26 +1,30 @@
-<!-- <template>
-  <NuxtLayout name="hello">
-    <template #title>{{ productName }}</template>
-    <template #message>{{ message }}</template>
-  </NuxtLayout>
+<template>
+  <main>
+    <HeroSection id="hero-section" />
+    <FeatureSection id="feature-section" />
+    <ProductGuide id="product-guide" />
+    <PerformanceStats id="performance-stats" />
+    <ScheduledFeeding id="scheduled-feeding" />
+    <HealthCta id="health-cta" />
+    <ProductsTypes id="product-types" />
+    <TestimonialSection id="testimonial-section" />
+  </main>
 </template>
 
 <script setup lang="ts">
-const productName: string = "Nuxt 3 Starter Kit";
-const features: string[] = ["Vite", "Vue 3", "TypeScript", "PostCSS", "TailwindCSS"];
-const message = computed(
-  () => `This is a ${productName} with ${features.slice(0, -1).join(", ")} and ${features.slice(-1)}!`
-);
+// const showResourcesDropdown = ref(false)
 
-definePageMeta({
-  layout: false,
-});
-</script> -->
+// function toggleResourcesDropdown() {
+//   showResourcesDropdown.value = !showResourcesDropdown.value
+// }
 
-<!-- pages/index.vue -->
-<script setup lang="ts">
-onMounted(() => {
-  const router = useRouter()
-  router.push('/login');
-});
+// const activeDropdown = ref('')
+
+// const toggleDropdown = (menu: any) => {
+//   if (activeDropdown.value === menu) {
+//     activeDropdown.value = ''
+//   } else {
+//     activeDropdown.value = menu
+//   }
+// }
 </script>
