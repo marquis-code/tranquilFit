@@ -1,54 +1,76 @@
 <template>
-    <div class="overflow-hidden bg-white py-32">
-        <div class="mx-auto max-w-7xl px-6 lg:flex lg:px-8">
-            <div
-                class="mx-auto grid max-w-2xl grid-cols-1 gap-x-12 gap-y-16 lg:mx-0 lg:min-w-full lg:max-w-none lg:flex-none lg:gap-y-8">
-                <div class="lg:col-end-1 lg:w-full lg:max-w-lg lg:pb-8">
-                    <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl" data-aos="flip-left">
-                        Reimagine weight loss &
-                        well-being
-                    </h2>
-                    <p class="mt-6 text-xl leading-8 text-gray-600" data-aos="flip-left">Get better health outcomes
-                        while reducing costs.</p>
-                    <p class="mt-6 text-base leading-7 text-gray-600" data-aos="flip-left">Our clinically proven
-                        behavior-change program
-                        treats the
-                        root cause of chronic metabolic conditions to improve quality of life and health outcomes while
-                        reducing
-                        costs.</p>
-                    <div class="mt-10 flex">
-                        <a href="#" data-aos="flip-left"
-                            class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Get
-                            Started<span aria-hidden="true">&rarr;</span></a>
-                    </div>
-                </div>
-                <div class="flex flex-wrap items-start justify-end gap-6 sm:gap-8 lg:contents">
-                    <div class="w-0 flex-auto lg:ml-auto lg:w-auto lg:flex-none lg:self-end">
-                        <img data-aos="flip-left" src="@/assets/img/exercise9.jpg" alt=""
-                            class="aspect-[7/5] w-[37rem] max-w-none rounded-2xl bg-gray-50 object-cover">
-                    </div>
-                    <div
-                        class="contents lg:col-span-2 lg:col-end-2 lg:ml-auto lg:flex lg:w-[37rem] lg:items-start lg:justify-end lg:gap-x-8">
-                        <div class="order-first flex w-64 flex-none justify-end self-end lg:w-auto">
-                            <img data-aos="flip-left"
-                            src="@/assets/img/exercise2.jpg"
-                                alt=""
-                                class="aspect-[4/3] w-[24rem] max-w-none flex-none rounded-2xl bg-gray-50 object-cover">
-                        </div>
-                        <div class="flex w-96 flex-auto justify-end lg:w-auto lg:flex-none">
-                            <img data-aos="flip-left"
-                            src="@/assets/img/exercise3.jpg"
-                                alt=""
-                                class="aspect-[7/5] w-[37rem] max-w-none flex-none rounded-2xl bg-gray-50 object-cover">
-                        </div>
-                        <div class="hidden sm:block sm:w-0 sm:flex-auto lg:w-auto lg:flex-none">
-                            <img data-aos="flip-left"
-                            src="@/assets/img/exercise4.jpg"
-                                alt="" class="aspect-[4/3] w-[24rem] max-w-none rounded-2xl bg-gray-50 object-cover">
-                        </div>
-                    </div>
-                </div>
+  <div class="bg-white">
+    <div class="relative isolate overflow-hidden bg-gradient-to-b from-indigo-100/20">
+      <div class="mx-auto max-w-7xl pb-24 pt-10 sm:pb-32 lg:grid lg:grid-cols-2 lg:gap-x-8 lg:px-8 lg:py-40">
+        <div class="px-6 lg:px-0 lg:pt-4">
+          <div class="mx-auto max-w-2xl">
+            <div class="max-w-lg">
+              <!-- <img class="h-11" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                alt="Your Company"> -->
+              <!-- <div class="mt-24 sm:mt-32 lg:mt-16">
+                <a href="#" class="inline-flex space-x-6">
+                  <span
+                    class="rounded-full bg-indigo-600/10 px-3 py-1 text-sm font-semibold leading-6 text-indigo-600 ring-1 ring-inset ring-indigo-600/10">What's
+                    new</span>
+                  <span class="inline-flex items-center space-x-2 text-sm font-medium leading-6 text-gray-600">
+                    <span>Just shipped v0.1.0</span>
+                    <svg class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                      <path fill-rule="evenodd"
+                        d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
+                        clip-rule="evenodd" />
+                    </svg>
+                  </span>
+                </a>
+              </div> -->
+              <h1 class="mt-10 text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">Lose Weight Stress-Free with
+                SWL Coaching</h1>
+              <p class="mt-6 text-lg leading-8 text-gray-600">Discover a stress-free and healthy approach to weight loss
+                with our personalized coaching program. Achieve your weight loss goals and maintain a healthy lifestyle
+                for life.</p>
+              <div class="mt-10 flex items-center gap-x-6">
+                <a href="#"
+                  class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Learn
+                  More</a>
+                <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Sign Up <span
+                    aria-hidden="true">→</span></a>
+              </div>
             </div>
+          </div>
         </div>
+        <div class="mt-20 sm:mt-24 md:mx-auto md:max-w-2xl lg:mx-0 lg:mt-0 lg:w-screen">
+          <div
+            class="absolute inset-y-0 right-1/2 -z-10 -mr-10 w-[200%] skew-x-[-30deg] bg-white shadow-xl shadow-indigo-600/10 ring-1 ring-indigo-50 md:-mr-20 lg:-mr-36"
+            aria-hidden="true"></div>
+          <div class="shadow-lg md:rounded-3xl">
+            <div class="bg-indigo-500 [clip-path:inset(0)] md:[clip-path:inset(0_round_theme(borderRadius.3xl))]">
+              <div
+                class="absolute -inset-y-px left-1/2 -z-10 ml-10 w-[200%] skew-x-[-30deg] bg-indigo-100 opacity-20 ring-1 ring-inset ring-white md:ml-20 lg:ml-36"
+                aria-hidden="true"></div>
+              <img src="@/assets/img/exercise4.jpg" />
+              <!-- <div class="relative px-6 pt-8 sm:pt-16 md:pl-16 md:pr-0">
+                <div class="mx-auto max-w-2xl md:mx-0 md:max-w-none">
+                  <div class="w-screen overflow-hidden rounded-tl-xl bg-gray-900">
+                    <div class="flex bg-gray-800/40 ring-1 ring-white/5">
+                      <div class="-mb-px flex text-sm font-medium leading-6 text-gray-400">
+                        <div
+                          class="border-b border-r border-b-white/20 border-r-white/10 bg-white/5 px-4 py-2 text-white">
+                          NotificationSetting.jsx</div>
+                        <div class="border-r border-gray-600/10 px-4 py-2">App.jsx</div>
+                      </div>
+                    </div>
+                    <div class="px-6 pb-14 pt-6">
+                    </div>
+                  </div>
+                </div>
+                <div class="pointer-events-none absolute inset-0 ring-1 ring-inset ring-black/10 md:rounded-3xl"
+                  aria-hidden="true"></div>
+              </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="absolute inset-x-0 bottom-0 -z-10 h-24 bg-gradient-to-t from-white sm:h-32"></div>
     </div>
+  </div>
+
 </template>
