@@ -3,14 +3,14 @@
         <div>
             <label for="fullName" class="block text-sm font-medium leading-6 text-gray-900">Name</label>
             <div class="mt-2">
-                <input id="fullName" name="fullName" type="text"
+                <input id="fullName" name="fullName" type="text" placeholder="Enter full name"
                     class="block w-full rounded-md border px-3 py-2.5 text-gray-900 shadow-sm placeholder:text-gray-400 sm:text-sm sm:leading-6">
             </div>
         </div>
         <div>
             <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email address</label>
             <div class="mt-2">
-                <input id="email" name="email" type="email" autocomplete="email" required
+                <input id="email" name="email" type="email" placeholder="Enter your email address"
                     class="block w-full rounded-md border px-3 py-2.5 text-gray-900 shadow-sm placeholder:text-gray-400 sm:text-sm sm:leading-6">
             </div>
         </div>
@@ -18,7 +18,7 @@
         <div>
             <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Password</label>
             <div class="mt-2 relative">
-                <input id="password" name="password" :type="showPassword ? 'text' : 'password'"
+                <input id="password" name="password" :type="showPassword ? 'text' : 'password'" placeholder="Enter your password"
                     class="block w-full rounded-md border px-3 py-2.5 text-gray-900 shadow-sm placeholder:text-gray-400 sm:text-sm sm:leading-6">
                 <img @click="showPassword = !showPassword" :src="eye" alt=""
                     class="absolute cursor-pointer top-2.5 right-4 h-6 w-6">

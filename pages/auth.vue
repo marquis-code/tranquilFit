@@ -13,7 +13,7 @@
         <AuthLoginForm class="page-transition" v-if="route.query.type === 'login'" />
         <AuthForgotPasswordForm class="page-transition" v-if="route.query.type === 'forgot-password'" />
         <ResetPasswordForm class="page-transition" v-if="route.query.type === 'reset-password'" />
-        <div>
+        <!-- <div>
           <div class="relative mt-10">
             <div class="absolute inset-0 flex items-center" aria-hidden="true">
               <div class="w-full border-t border-gray-200"></div>
@@ -53,7 +53,7 @@
               <span class="text-sm font-semibold leading-6">GitHub</span>
             </a>
           </div>
-        </div>
+        </div> -->
       </div>
 
       <p v-if="route.query.type === 'login'" class="mt-10 text-center text-sm text-gray-500">
@@ -90,7 +90,6 @@ const computedAuthHeader = computed(() => {
   }
   return pageHeaderObj
 })
-
 </script>
 
 <style>

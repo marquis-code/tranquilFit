@@ -132,7 +132,7 @@
                 </div>
 
                 <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Features</a>
-                <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Marketplace</a>
+                <NuxtLink to="/subscription" class="text-sm font-semibold leading-6 text-gray-900">Subscription</NuxtLink>
 
                 <div class="relative">
                     <button type="button" @click="isCompanyModalOpen = true"

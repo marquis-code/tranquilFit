@@ -18,11 +18,14 @@
     "tailwindcss": "^3.3.3"
   },
   "dependencies": {
+    "@mycure/vue-jitsi-meet": "^0.0.8",
     "@nuxtjs/moment": "^1.6.1",
     "@nuxtjs/tailwindcss": "^6.11.4",
+    "@vite-pwa/nuxt": "^0.8.0",
     "@vueuse/core": "^10.9.0",
     "aos": "^2.3.4",
     "axios": "^1.6.8",
+    "flutterwave-vue3": "^0.0.2",
     "moment": "^2.30.1",
     "pinia": "^2.1.7",
     "postcss-custom-properties": "^13.3.6",

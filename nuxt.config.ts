@@ -3,7 +3,7 @@ export default {
   target: "static",
   app: {
     head: {
-      title: "TranquilFit",
+      title: "Stress Free Weight Loss",
       htmlAttrs: { lang: "en" },
       meta: [
         { charset: "utf-8" },
@@ -14,19 +14,46 @@ export default {
     },
   },
   plugins: ["~/plugins/aos.client.ts"],
-  modules: ["@nuxtjs/tailwindcss"],
+  modules: ["@nuxtjs/tailwindcss", "@vite-pwa/nuxt"],
   css: ["/assets/css/main.css"],
   tailwindcss: {
     cssPath: "@/assets/css/main.css",
   },
   pageTransition: {
-    name: 'slide',
-    mode: 'out-in'
+    name: "slide",
+    mode: "out-in",
   },
   axios: {
     // Axios options here
     timeout: 10000, // Example: set timeout to 10 seconds
   },
+  pwa: {
+    manifest: {
+      name: 'Stress Free Weight Loss',
+      short_name: 'Stress Free Weight Loss',
+      description: 'Discover a stress-free and healthy approach to weight loss with our personalized coaching program. Achieve your weight loss goals and maintain a healthy lifestyle for life.',
+      lang: 'en',
+      display: 'standalone',
+      start_url: '/',
+      theme_color: '#ffffff',
+      background_color: '#ffffff',
+      icons: [
+        {
+          src: '/icons/icon-192x192.png',
+          sizes: '192x192',
+          type: 'image/png'
+        },
+        {
+          src: '/icons/icon-512x512.png',
+          sizes: '512x512',
+          type: 'image/png'
+        }
+      ]
+    },
+    workbox: {
+      // Workbox options for caching strategies, runtime caching, etc.
+    }
+  }
   // buildModules: [
   //   '@nuxtjs/moment'
   // ]

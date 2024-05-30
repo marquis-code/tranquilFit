@@ -348,7 +348,7 @@ const accountNav = ref([
         path: '/user-dashboard/subscription'
     },
     {
-        name: 'Promo Code',
+        name: 'Todays Tips',
         path: '/user-dashboard/promo-code'
     }
 ])

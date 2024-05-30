@@ -28,16 +28,17 @@
                 with our personalized coaching program. Achieve your weight loss goals and maintain a healthy lifestyle
                 for life.</p>
               <div class="mt-10 flex items-center gap-x-6">
-                <a href="#"
-                  class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Learn
-                  More</a>
-                <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Sign Up <span
-                    aria-hidden="true">→</span></a>
+                <button @click="handleGetStarted"
+                  class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Get
+                  Started
+                </button>
+                <a href="#" @click.prevent="router.push({ path: '/auth', query: { type: 'signup' } })"
+                  class="text-sm font-semibold leading-6 text-gray-900">Sign Up <span aria-hidden="true">→</span></a>
               </div>
             </div>
           </div>
         </div>
-        <div class="mt-20 sm:mt-24 md:mx-auto md:max-w-2xl lg:mx-0 lg:mt-0 lg:w-screen">
+        <div class="mt-20 sm:mt-24 md:mx-auto md:max-w-2xl lg:mx-0 lg:mt-0 lg:w-screen p-3 rounded-lg lg:p-0 lg:rounded-none">
           <div
             class="absolute inset-y-0 right-1/2 -z-10 -mr-10 w-[200%] skew-x-[-30deg] bg-white shadow-xl shadow-indigo-600/10 ring-1 ring-indigo-50 md:-mr-20 lg:-mr-36"
             aria-hidden="true"></div>
@@ -46,7 +47,8 @@
               <div
                 class="absolute -inset-y-px left-1/2 -z-10 ml-10 w-[200%] skew-x-[-30deg] bg-indigo-100 opacity-20 ring-1 ring-inset ring-white md:ml-20 lg:ml-36"
                 aria-hidden="true"></div>
-              <img src="@/assets/img/exercise4.jpg" />
+                <VideoPlayer />
+              <!-- <img src="@/assets/img/exercise4.jpg" /> -->
               <!-- <div class="relative px-6 pt-8 sm:pt-16 md:pl-16 md:pr-0">
                 <div class="mx-auto max-w-2xl md:mx-0 md:max-w-none">
                   <div class="w-screen overflow-hidden rounded-tl-xl bg-gray-900">
@@ -74,3 +76,29 @@
   </div>
 
 </template>
+
+<script setup lang="ts">
+import { usePwaInstall } from '@/composables/usePwaInstall'
+const router = useRouter()
+
+const handleGetStarted = () => {
+  router.push({ path: '/assessment', query: { step: 'step1' } })
+}
+const { promptInstall } = usePwaInstall()
+
+const installApp = async () => {
+  const installed = await promptInstall()
+  if (installed) {
+    console.log('PWA installed successfully!')
+  } else {
+    console.log('PWA installation declined.')
+  }
+}
+
+const isiOS = ref(false)
+
+onMounted(() => {
+  const userAgent = window.navigator.userAgent.toLowerCase()
+  isiOS.value = /iphone|ipad|ipod/.test(userAgent)
+})
+</script>
