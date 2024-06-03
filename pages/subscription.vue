@@ -15,14 +15,16 @@
                                 <fieldset
                                     class="grid grid-cols-2 gap-x-1 rounded-full bg-white/5 p-1 text-center text-xs font-semibold leading-5 text-white">
                                     <legend class="sr-only">Payment frequency</legend>
-                                    <!-- Checked: "bg-indigo-500" -->
-                                    <label class="cursor-pointer rounded-full px-2.5 py-1">
-                                        <input type="radio" name="frequency" value="monthly" class="sr-only">
+                                    <label :class="[subscriptionDuration === 'monthly' ? 'bg-indigo-500' : '']"
+                                        class="cursor-pointer rounded-full px-2.5 py-1">
+                                        <input type="radio" v-model="subscriptionDuration" name="frequency"
+                                            value="monthly" class="sr-only">
                                         <span>Monthly</span>
                                     </label>
-                                    <!-- Checked: "bg-indigo-500" -->
-                                    <label class="cursor-pointer rounded-full px-2.5 py-1">
-                                        <input type="radio" name="frequency" value="annually" class="sr-only">
+                                    <label :class="[subscriptionDuration === 'annually' ? 'bg-indigo-500' : '']"
+                                        class="cursor-pointer rounded-full px-2.5 py-1">
+                                        <input type="radio" v-model="subscriptionDuration" name="frequency"
+                                            value="annually" class="sr-only">
                                         <span>Annually</span>
                                     </label>
                                 </fieldset>
@@ -46,8 +48,8 @@
                             <div
                                 class="relative rounded-2xl bg-gray-800/80 ring-1 ring-white/10 lg:bg-transparent lg:pb-14 lg:ring-0">
                                 <div class="p-8 lg:pt-12 xl:p-10 xl:pt-14">
-                                    <h2 id="tier-starter" class="text-sm font-semibold leading-6 text-white">BASIC PLAN
-                                        FOR GROUP COACHING</h2>
+                                    <h2 id="tier-starter" class="text-sm font-semibold leading-6 text-white">BASIC
+                                        COACHING PLAN</h2>
                                     <div
                                         class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between lg:flex-col lg:items-stretch">
                                         <div class="mt-2 flex items-center gap-x-4">
@@ -62,6 +64,21 @@
                                         <p class="text-gray-400">Promo price: 40k for a 2-month (60 days) coaching
                                             period.
                                         </p>
+                                        <label for="Toggle1"
+                                            class="inline-flex items-center space-x-4 cursor-pointer dark:text-gray-100">
+                                            <span>Group</span>
+                                            <span class="relative">
+                                                <input id="Toggle1" type="checkbox" class="hidden peer">
+                                                <div
+                                                    class="w-10 h-6 rounded-full shadow-inner dark:bg-gray-400 peer-checked:dark:bg-violet-400">
+                                                </div>
+                                                <div
+                                                    class="absolute inset-y-0 left-0 w-4 h-4 m-1 rounded-full shadow peer-checked:right-0 peer-checked:left-auto dark:bg-gray-800">
+                                                </div>
+                                            </span>
+                                            <span>Individual</span>
+                                        </label>
+
                                         <button href="#" aria-describedby="tier-starter" @click="groupCoaching('10000')"
                                             class="rounded-md py-2 px-3 text-center text-sm font-semibold leading-6 text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 bg-white/10 hover:bg-white/20 focus-visible:outline-white">Buy
                                             this plan</button>
@@ -130,8 +147,8 @@
                             </div>
                             <div class="relative rounded-2xl z-10 bg-white shadow-xl ring-1 ring-gray-900/10">
                                 <div class="p-8 lg:pt-12 xl:p-10 xl:pt-14">
-                                    <h2 id="tier-scale" class="text-sm font-semibold leading-6 text-gray-900">BASIC PLAN
-                                        FOR INDIVIDUAL COACHING</h2>
+                                    <h2 id="tier-scale" class="text-sm font-semibold leading-6 text-gray-900">
+                                        INTERMEDIATE COACHING PLAN</h2>
                                     <div
                                         class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between lg:flex-col lg:items-stretch">
                                         <div class="mt-2 flex items-center gap-x-4">
@@ -143,7 +160,24 @@
                                                 <p class="text-gray-500">Billed monthly</p>
                                             </div>
                                         </div>
-                                        <p class="text-gray-500">Promo price: 120k</p>
+                                        <p class="text-gray-400">Promo price: 40k for a 2-month (60 days) coaching
+                                            period.
+                                        </p>
+                                        <label for="Toggle1"
+                                            class="inline-flex items-center space-x-4 cursor-pointer dark:text-gray-800">
+                                            <span>Group</span>
+                                            <span class="relative">
+                                                <input id="Toggle1" type="checkbox" class="hidden peer">
+                                                <div
+                                                    class="w-10 h-6 rounded-full shadow-inner dark:bg-gray-400 peer-checked:dark:bg-violet-400">
+                                                </div>
+                                                <div
+                                                    class="absolute inset-y-0 left-0 w-4 h-4 m-1 rounded-full shadow peer-checked:right-0 peer-checked:left-auto dark:bg-gray-800">
+                                                </div>
+                                            </span>
+                                            <span>Individual</span>
+                                        </label>
+                                        <!-- <p class="text-gray-500">Promo price: 120k</p> -->
                                         <button href="#" aria-describedby="tier-scale" @click="privateCoaching('50000')"
                                             class="rounded-md py-2 px-3 text-center text-sm font-semibold leading-6 text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 bg-indigo-600 shadow-sm hover:bg-indigo-500 focus-visible:outline-indigo-600">Buy
                                             this plan</button>
@@ -195,7 +229,8 @@
                             <div
                                 class="relative rounded-2xl bg-gray-800/80 ring-1 ring-white/10 lg:bg-transparent lg:pb-14 lg:ring-0">
                                 <div class="p-8 lg:pt-12 xl:p-10 xl:pt-14">
-                                    <h2 id="tier-growth" class="text-sm font-semibold leading-6 text-white">SUPER PLAN
+                                    <h2 id="tier-growth" class="text-sm font-semibold leading-6 text-white">PREMIUM
+                                        COACHING PLAN
                                     </h2>
                                     <div
                                         class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between lg:flex-col lg:items-stretch">
@@ -208,6 +243,23 @@
                                                 <p class="text-gray-400">Billed monthly</p>
                                             </div>
                                         </div>
+                                        <p class="text-gray-400">Promo price: 40k for a 2-month (60 days) coaching
+                                            period.
+                                        </p>
+                                        <label for="Toggle1"
+                                            class="inline-flex items-center space-x-4 cursor-pointer dark:text-gray-100">
+                                            <span>Group</span>
+                                            <span class="relative">
+                                                <input id="Toggle1" type="checkbox" class="hidden peer">
+                                                <div
+                                                    class="w-10 h-6 rounded-full shadow-inner dark:bg-gray-400 peer-checked:dark:bg-violet-400">
+                                                </div>
+                                                <div
+                                                    class="absolute inset-y-0 left-0 w-4 h-4 m-1 rounded-full shadow peer-checked:right-0 peer-checked:left-auto dark:bg-gray-800">
+                                                </div>
+                                            </span>
+                                            <span>Individual</span>
+                                        </label>
                                         <a href="#" aria-describedby="tier-growth"
                                             class="rounded-md py-2 px-3 text-center text-sm font-semibold leading-6 text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 bg-white/10 hover:bg-white/20 focus-visible:outline-white">Buy
                                             this plan</a>
@@ -495,6 +547,20 @@ const privateCoaching = (amount: number) => {
     setAmount(amount)
     handlePayment()
 }
+
+const subscriptionDuration = ref('monthly')
+
+const basicIndividualPlan = ref([])
+
+const basicGroupPlan = ref([])
+
+const intermediateIndividualPlan = ref([])
+
+const intermediateGroupPlan = ref([])
+
+const premiumIndividualPlan = ref([])
+
+const premiumGroupPlan = ref([])
 
 const groupCoaching = (amount: number) => {
     setAmount(amount)
