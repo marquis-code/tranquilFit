@@ -2,10 +2,11 @@ import { authApiFactory } from "@/apiFactory/auth";
 
 export const useRegister = () => {
   const loading = ref(false);
+  const route = useRoute()
   const registerPayload = ref({
-    firstName: "",
-    lastName: "",
+    fullName: "",
     email: "",
+    phone: "",
     password: "",
   });
 
@@ -13,9 +14,9 @@ export const useRegister = () => {
     loading.value = true;
     try {
       const payload = {
-        firstName: registerPayload.value.firstName,
-        lastName: registerPayload.value.lastName,
+        firstName: registerPayload.value.fullName,
         email: registerPayload.value.email,
+        phone: registerPayload.value.phone,
         password: registerPayload.value.password,
       };
 
@@ -24,7 +25,7 @@ export const useRegister = () => {
         autoClose: 5000,
         dangerouslyHTMLString: true,
       });
-      useRouter().push("/login");
+      useRouter().push({ path: route.path, query: { type: "login" } });
     } catch (error) {
       useNuxtApp().$toast.error(error.message, {
         autoClose: 5000,
@@ -38,9 +39,9 @@ export const useRegister = () => {
 
   const isFormEmpty = computed(() => {
     return !!(
-      registerPayload.value.firstName &&
-      registerPayload.value.lastName &&
+      registerPayload.value.fullName &&
       registerPayload.value.email &&
+      registerPayload.value.phone &&
       registerPayload.value.password
     );
   });

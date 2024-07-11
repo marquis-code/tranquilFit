@@ -19,10 +19,12 @@
   },
   "dependencies": {
     "@mycure/vue-jitsi-meet": "^0.0.8",
+    "@nuxt/http": "^0.6.4",
     "@nuxtjs/moment": "^1.6.1",
     "@nuxtjs/tailwindcss": "^6.11.4",
     "@vite-pwa/nuxt": "^0.8.0",
     "@vueuse/core": "^10.9.0",
+    "@zoomus/websdk": "^2.18.3",
     "aos": "^2.3.4",
     "axios": "^1.6.8",
     "flutterwave-vue3": "^0.0.2",

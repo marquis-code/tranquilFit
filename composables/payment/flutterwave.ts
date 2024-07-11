@@ -1,5 +1,4 @@
 import { useFlutterwave } from "flutterwave-vue3";
-import { useLogin } from "@/composables/auth/login";
 import logo from "@/assets/img/logo.png";
 
 const router = useRouter()

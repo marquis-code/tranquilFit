@@ -46,13 +46,14 @@ export const useLogin = () => {
         autoClose: 5000,
         dangerouslyHTMLString: true,
       });
-      useRouter().push("/dashboard");
+      useRouter().push({ path: "/assessment" });
       return response.data;
     } catch (error) {
       useNuxtApp().$toast.error("Something went wrong!", {
         autoClose: 5000,
         dangerouslyHTMLString: true,
       });
+      useRouter().push({ path: "/assessment" });
       return error;
     } finally {
       loading.value = false;
@@ -67,12 +68,13 @@ export const useLogin = () => {
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
+      confirmButtonText: "Yes, Logout!",
+      cancelButtonText: "Nah,Just Kidding!",
     }).then((result) => {
       if (result.value) {
         localStorage.clear();
         runtimeData.user.value = null;
-        location.href = "/login";
+        location.href = "/auth";
       } else {
         Swal.fire("Cancelled", "Action was cancelled", "info");
       }
@@ -125,6 +127,6 @@ export const useLogin = () => {
     isLoggedIn,
     id,
     userRole,
-    user
+    user,
   };
 };

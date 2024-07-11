@@ -2,17 +2,18 @@
   <main>
     <navigation-bar></navigation-bar>
     <hero-section></hero-section>
-    <feature-one></feature-one>
+    <feature-one id="features"></feature-one>
     <feature-two></feature-two>
     <feature-three></feature-three>
     <feature-four></feature-four>
     <feature-five></feature-five>
     <feature-six></feature-six>
     <feature-seven></feature-seven>
-    <review-section></review-section>
+    <review-section id="reviews"></review-section>
     <c-t-a-section></c-t-a-section>
     <news-letter-section></news-letter-section>
-    <contact-section></contact-section>
+    <frequently-asked-questions id="faq"></frequently-asked-questions>
+    <contact-section id="contact"></contact-section>
     <footer-section></footer-section>
   </main>
 </template>

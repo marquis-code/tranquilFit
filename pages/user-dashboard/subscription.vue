@@ -1,5 +1,5 @@
 <template>
-  <div class="space-y-6">
+  <div class="space-y-6 overflow-y-auto h-[650px] hide-scrollbar">
     <div class="container px-6 py-8 mx-auto">
       <h1 class="text-xl text-gray-800 font-semibold text-center capitalize lg:text-3xl dark:">Simple pricing plan</h1>
 

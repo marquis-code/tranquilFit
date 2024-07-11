@@ -113,25 +113,31 @@
                         <div class="col-span-2">
                             <nav class="flex space-x-4">
                                 <!-- Current: "text-white", Default: "text-indigo-100" -->
-                                <a href="#"
+                                <NuxtLink to="/user-dashboard/how-it-works"
                                     class="text-white rounded-md bg-white bg-opacity-0 px-3 py-2 text-sm font-medium hover:bg-opacity-10"
                                     aria-current="page">How It Works
-                                </a>
-                                <a href="#"
-                                    class="text-indigo-100 rounded-md bg-white bg-opacity-0 px-3 py-2 text-sm font-medium hover:bg-opacity-10">Find
-                                    Your Plan</a>
-                                <a href="#"
-                                    class="text-indigo-100 rounded-md bg-white bg-opacity-0 px-3 py-2 text-sm font-medium hover:bg-opacity-10">Blog</a>
-                                <a href="#"
-                                    class="text-indigo-100 rounded-md bg-white bg-opacity-0 px-3 py-2 text-sm font-medium hover:bg-opacity-10">Help</a>
-                                <a href="#"
-                                    class="text-indigo-100 rounded-md bg-white bg-opacity-0 px-3 py-2 text-sm font-medium hover:bg-opacity-10">Coaches</a>
-                                <a href="#"
-                                    class="text-indigo-100 rounded-md bg-white bg-opacity-0 px-3 py-2 text-sm font-medium hover:bg-opacity-10">Podcast</a>
-                                <a href="#"
-                                    class="text-indigo-100 rounded-md bg-white bg-opacity-0 px-3 py-2 text-sm font-medium hover:bg-opacity-10">Success
-                                    Stories
-                                </a>
+                            </NuxtLink>
+                                        <NuxtLink to="/user-dashboard"
+                                            class="text-indigo-100 rounded-md bg-white bg-opacity-0 px-3 py-2 text-sm font-medium hover:bg-opacity-10">
+                                            Find
+                                            Your Plan</NuxtLink>
+                                        <NuxtLink to="/user-dashboard/blog"
+                                            class="text-indigo-100 rounded-md bg-white bg-opacity-0 px-3 py-2 text-sm font-medium hover:bg-opacity-10">
+                                            Blog</NuxtLink>
+                                        <NuxtLink to="/user-dashboard/help"
+                                            class="text-indigo-100 rounded-md bg-white bg-opacity-0 px-3 py-2 text-sm font-medium hover:bg-opacity-10">
+                                            Help</NuxtLink>
+                                        <NuxtLink to="/user-dashboard/coaches"
+                                            class="text-indigo-100 rounded-md bg-white bg-opacity-0 px-3 py-2 text-sm font-medium hover:bg-opacity-10">
+                                            Coaches</NuxtLink>
+                                        <NuxtLink to="/user-dashboard/podcast"
+                                            class="text-indigo-100 rounded-md bg-white bg-opacity-0 px-3 py-2 text-sm font-medium hover:bg-opacity-10">
+                                            Podcast</NuxtLink>
+                                        <NuxtLink to="/user-dashboard/success-stories"
+                                            class="text-indigo-100 rounded-md bg-white bg-opacity-0 px-3 py-2 text-sm font-medium hover:bg-opacity-10">
+                                            Success
+                                            Stories
+                                        </NuxtLink>
                             </nav>
                         </div>
                         <div>
@@ -295,6 +301,9 @@
                                             {{ itm.name }}
                                         </NuxtLink>
                                     </div>
+                                    <div class="flex pl-10 justify-center items-start flex-col gap-y-3 pt-6 px-6">
+                                        <button @click="logOut" class="flex items-center gap-x-3 font-medium text-gray-700">Logout <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4a4a4a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M13.8 12H3"/></svg></button>
+                                    </div>
                                 </div>
                             </div>
                         </section>
@@ -326,85 +335,87 @@
 </template>
 
 <script setup lang="ts">
+import { useLogin } from '@/composables/auth/login'
+const { logOut } = useLogin()
 import Swal from "sweetalert2";
-const route = useRoute()
-const router = useRouter()
-const showProfileOptions = ref(false)
+const route = useRoute();
+const router = useRouter();
+const showProfileOptions = ref(false);
 const accountNav = ref([
-    {
-        name: 'Account Overview',
-        path: '/user-dashboard/'
-    },
-    {
-        name: 'Edit Profile',
-        path: '/user-dashboard/profile'
-    },
-    {
-        name: 'Plan Summary',
-        path: '/user-dashboard/plan-summary'
-    },
-    {
-        name: 'Manage Subscription',
-        path: '/user-dashboard/subscription'
-    },
-    {
-        name: 'Todays Tips',
-        path: '/user-dashboard/promo-code'
-    }
-])
+  {
+    name: "Account Overview",
+    path: "/user-dashboard/",
+  },
+  {
+    name: "Edit Profile",
+    path: "/user-dashboard/profile",
+  },
+  {
+    name: "Plan Summary",
+    path: "/user-dashboard/plan-summary",
+  },
+  {
+    name: "Manage Subscription",
+    path: "/user-dashboard/subscription",
+  },
+  {
+    name: "Todays Tips",
+    path: "/user-dashboard/promo-code",
+  },
+]);
 
-const showDropdown = ref(false)
+const showDropdown = ref(false);
 
 const toggleMobile = (itm: any) => {
-    switch (itm) {
-        case 'account-overview':
-            showDropdown.value = false
-            router.push('/user-dashboard')
-            break;
-        case 'edit-profile':
-            showDropdown.value = false
-            router.push('/user-dashboard/profile')
-            break;
-        case 'plan-summary':
-            showDropdown.value = false
-            router.push('/user-dashboard/plan-summary')
-            break;
-        case 'manage-subscription':
-            showDropdown.value = false
-            router.push('/user-dashboard/subscription')
-            break;
-        case 'promo-code':
-            showDropdown.value = false
-            router.push('/user-dashboard/promo-code')
-            break;
-    }
-}
-
-const logOut = () => {
-    Swal.fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, Logout!",
-        cancelButtonText: "Nah, Just Kidding!",
-    }).then((result) => {
-        if (result.value) {
-            localStorage.clear();
-            router.push({ path: '/auth', query: { type: 'login' } })
-        } else {
-            Swal.fire("Cancelled", "Action was cancelled", "info");
-        }
-    });
+  switch (itm) {
+    case "account-overview":
+      showDropdown.value = false;
+      router.push("/user-dashboard");
+      break;
+    case "edit-profile":
+      showDropdown.value = false;
+      router.push("/user-dashboard/profile");
+      break;
+    case "plan-summary":
+      showDropdown.value = false;
+      router.push("/user-dashboard/plan-summary");
+      break;
+    case "manage-subscription":
+      showDropdown.value = false;
+      router.push("/user-dashboard/subscription");
+      break;
+    case "promo-code":
+      showDropdown.value = false;
+      router.push("/user-dashboard/promo-code");
+      break;
+  }
 };
+
+// const logOut = () => {
+//   Swal.fire({
+//     title: "Are you sure?",
+//     text: "You won't be able to revert this!",
+//     icon: "warning",
+//     showCancelButton: true,
+//     confirmButtonColor: "#3085d6",
+//     cancelButtonColor: "#d33",
+//     confirmButtonText: "Yes, Logout!",
+//     cancelButtonText: "Nah, Just Kidding!",
+//   }).then((result) => {
+//     if (result.value) {
+//       localStorage.clear();
+//       router.push({ path: "/auth", query: { type: "login" } });
+//     } else {
+//       Swal.fire("Cancelled", "Action was cancelled", "info");
+//     }
+//   });
+// };
 </script>
 
 
 <style scoped>
 .router-link-exact-active {
-    background-color: #F4FBFE;
-    color: #357392
+  background-color: #f4fbfe;
+  color: #357392;
 }
 </style>

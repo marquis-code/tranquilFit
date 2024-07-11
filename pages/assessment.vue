@@ -147,7 +147,8 @@
                     <p class="py-0 my-0">You are qualified for Stress Free Weight Loss Coaching.</p>
                 </div>
                 <div class="mt-4">
-                    <button @click="handleNavigation"  class="bg-green-600 text-white px-6 py-2.5 rounded-lg text-sm">Proceed to select
+                    <button @click="handleNavigation"
+                        class="bg-green-600 text-white px-6 py-2.5 rounded-lg text-sm">Proceed to select
                         plans</button>
                 </div>
             </section>
@@ -164,4 +165,11 @@ const handleNavigation = () => {
     openSuccessModal.value = false
     router.push('/subscription')
 }
+const defaultStep = ref('step1')
+onMounted(() => {
+    console.log(!!!Object.keys(route.query).length, 'here')
+    if (!!!Object.keys(route.query).length) {
+        router.push({ path: route.path, query: { step: defaultStep.value } })
+    }
+})
 </script>
